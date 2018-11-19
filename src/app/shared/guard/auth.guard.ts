@@ -13,11 +13,11 @@ export class AuthGuard implements CanActivate {
         let currentUserName = localStorage.getItem('currentUserName');
 
         if (currentUserName) {
-            let countCambioPass = this.configService.getCntCambioPass() || 0;
+/*             let countCambioPass = this.configService.getCntCambioPass() || 0;
             if(countCambioPass == 0){
                 this.router.navigate(['/session/confirmarpass']);
                 return false;    
-            }
+            } */
             return true;
         }
 

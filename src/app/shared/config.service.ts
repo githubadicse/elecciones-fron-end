@@ -25,8 +25,8 @@ export class ConfigService {
     this._port= ":8080";
     this._portPunto = ":8082";
     this._url= this._protocol+this._host;  
-    this._rutahostserver = "comercial";    
-    this._corsFilter = "/res";    
+    this._rutahostserver = "eleccion";    
+    this._corsFilter = "/res"; 
 
   }
 

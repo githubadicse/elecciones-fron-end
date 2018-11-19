@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CrudHttpClientServiceShared } from '../../../shared/servicio/crudHttpClient.service.shared';
 import { MenuModel } from '../menu-model';
-import { ItemEntregaModel } from '../../../qaliwarma/item-entrega/item-entrega-model';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatTableDataSource } from '@angular/material';
 import { isUndefined } from 'util';

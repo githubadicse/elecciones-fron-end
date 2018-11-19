@@ -14,7 +14,7 @@ export class SessionService {
   ) { }
 
   sendCredentials(model):Observable<HttpResponse<any>>  {
-    let tokenUrl= this.configService.getUrlBasic("usuario","login2");
+    let tokenUrl= this.configService.getUrlBasic("usuario","do");
     
  
     let repuesta;
