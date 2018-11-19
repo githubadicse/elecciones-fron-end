@@ -1,0 +1,42 @@
+<br>
+<div class="container-fluid">
+    <button type="button" [routerLink]="['../']" class="btn btn-success">Atras</button>
+    
+  <hr>
+  <p style="font-size:20px;"> {{title}}</p>
+
+
+
+  <div class="row">
+    <label class="control-label col-2">Almacen</label>
+    <div class="col-6">
+      <select class="form-control inputselect " [(ngModel)]="this.almacenModel" (change)="onChangeAlmacen($event)">
+          
+            <option *ngFor="let almacen of almacensModel" [ngValue]="almacen"  >{{almacen.dscalmacen}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="control-label col-2">Periodo MM/YYYY</label>
+    <div class="col-3">
+      <select class="form-control inputselect" [(ngModel)]="this.mes" (change)="onChangeMes($event)">
+          <option *ngFor="let mes of meses; let idx=index" [ngValue]=mes  >{{mes.mes}}</option>
+      </select>
+    </div>
+
+    <div class="col-3">
+      <input class="form-control" type="text" class="inputfield" [(ngModel)]='anno'>
+    </div>
+    <div class="col-4"></div>
+  </div>
+
+  {{anno}}
+  <div class="row" *ngIf="!existeInicio">
+    <button type="button" class="btn btn-success" (click)="generarPeriodoInicio()" >Generar inicio de periodo</button>
+  </div>
+  <div class="row">
+    <h1>{{this.msg}}</h1>
+  </div>
+
+</div>

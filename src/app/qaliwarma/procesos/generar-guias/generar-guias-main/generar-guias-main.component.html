@@ -1,0 +1,44 @@
+<div class="container-fluit">
+
+    <div class="tituloEdit">
+      {{titulo}}
+    </div>
+  
+    <form [formGroup]="dataForm">
+      <div class="row">
+        <label class="col-md-2">Periodo</label>
+        <input type="number" class="col-md-3 form-control inputfield" formControlName="anno" [(ngModel)]="this.anno">
+      </div>
+  
+      <div class="row">
+        <label class="col-md-2">Nro Entrega</label>
+        <input type="number" class="col-md-3 form-control inputfield" formControlName="numeroEntrega" [(ngModel)]="this.numeroEntrega">
+      </div>
+  
+      <div class="row">
+          <label class="col-md-2">Serie Guia</label>
+          <input type="number" class="col-md-3 form-control inputfield" formControlName="serieGuia" [(ngModel)]="this.serieGuia">
+
+          <label class="col-md-2">Nro Guia Inicio</label>
+          <input type="number" class="col-md-3 form-control inputfield" formControlName="numeroGuia" [(ngModel)]="this.numeroGuia">
+        </div>
+      <br>
+
+      <div class="row">
+        <label class="col-md-2">Cliente</label>
+        <input type="text" readonly class="col-md-3 form-control inputfield" formControlName="idProveedorCliente" [(ngModel)]="this.idProveedorCliente">&nbsp;
+        <i style="cursor: pointer;" class="fa fa-search fa-3x" aria-hidden="true" data-toggle="tooltip" title="Buscar" (click)="delete(data)"></i>
+      </div>
+
+      <div class="alert alert-danger" role="alert">
+        <strong>Atencion!</strong> Este proceso generara las guias de remision para el periodo, año, y numero de entrega.
+        <br/> El numero de las guias tendran el orden por Item.
+      </div>
+      <br>
+      <button type="button" class="btn btn-outline-success" [disabled]="!dataForm.valid" (click)="crearGuiaRemision()">Procesar</button>
+  
+  
+    </form>
+  
+  
+  </div>

@@ -1,0 +1,203 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 ">
+      <!--     <div class="invoice-title">
+        <h2>Venta</h2>
+        <h3 class="pull-right">Order # 12345</h3>
+      </div> -->
+      <hr>
+
+      <div class="row">
+
+        <div class="form-group">
+          <label class="labelCustom">Tipo Documento</label>
+          <ng-select style="width: 150px;" [items]="this.tipoDocumentosModel" [searchable]="false" [clearable]="false" bindLabel="dscTipoDocumento"
+            placeholder="Seleccione documento" [(ngModel)]="selectedPeople1">
+          </ng-select>
+
+        </div>
+        &nbsp;
+
+        <div>
+          <label class="labelCustom">Serie</label>
+          <input style="width: 80px;" type="text" class="form-control inputfield">
+
+        </div>
+        &nbsp;
+        <div class="form-group">
+          <label class="labelCustom">Nro Documento</label>
+          <input style="width: 100px;" type="text" class="form-control inputfield">
+
+        </div>
+        &nbsp;
+
+        <div class="form-group text-left">
+          <label class="labelCustom">Fecha Emision</label>
+
+          <div class="text-left">
+            <p-calendar [inputStyle]="{'width':'100%','height':'26px'}" dataType="string" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+          </div>
+
+        </div>
+        &nbsp;
+
+        <div>
+          <label class="labelCustom">Moneda</label>
+          <ng-select style="width: 150px;" [items]="this.monedasModel" [searchable]="false" [clearable]="false" bindLabel="dscMoneda"
+            placeholder="Seleccion Cliente">
+          </ng-select>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <div>
+            <label class="labelCustom">Cliente</label>
+
+            <ng-select style="width: 350px;" [items]="this.proveedorClientesModel" [searchable]="true" [clearable]="false" bindLabel="razonsocial"
+              [loading]="people3Loading" [typeahead]="people3Typeahead">
+              <ng-template ng-option-tmp let-item="item">
+                {{item.razonsocial}}
+                <br />
+                <small>{{item.documentoidentificacion.dscdocumentoidentificacion}}:{{item.nrodocumento}}</small>
+                <br />
+              </ng-template>
+            </ng-select>
+          </div>
+
+          <div>
+              <label class="labelCustom">Direccion</label>
+
+              <ng-select style="width: 350px;" [items]="this.proveedorClientesModel" [searchable]="true" [clearable]="false" bindLabel="razonsocial"
+                [loading]="people3Loading" [typeahead]="people3Typeahead">
+                <ng-template ng-option-tmp let-item="item">
+                  {{item.razonsocial}}
+                  <br />
+                  <small>{{item.documentoidentificacion.dscdocumentoidentificacion}}:{{item.nrodocumento}}</small>
+                  <br />
+                </ng-template>
+              </ng-select>
+          </div>
+        </div>
+        &nbsp;
+        <div>
+          <label class="labelCustom">Condicion Venta</label>
+          <ng-select style="width: 150px;" [items]="this.monedasModel" [searchable]="false" [clearable]="false" bindLabel="dscMoneda"
+            placeholder="Seleccion Moneda">
+          </ng-select>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+
+      <p-table [value]="" [responsive]='true'>
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>Cod.Pro</th>
+                  <th>Descripcion</th>
+                  <th>Cantid</th>
+                  <th>V.Unt</th>
+                  <th>Dscto</th>
+                  <th>V.Unt</th>
+                  <th>V.Unt Igv</th>
+                  <th>P.Unt</th>
+
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-car>
+              <tr>
+                  <td>z</td>
+                  <td>b</td>
+                  <td>c</td>
+                  <td>d</td>
+              </tr>
+          </ng-template>
+      </p-table>
+
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <!-- <strong>Detalle del documento</strong> -->
+          </h3>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <td>
+                    <strong>Item</strong>
+                  </td>
+                  <td class="text-center">
+                    <strong>Price</strong>
+                  </td>
+                  <td class="text-center">
+                    <strong>Quantity</strong>
+                  </td>
+                  <td class="text-right">
+                    <strong>Totals</strong>
+                  </td>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                <tr>
+                  <td>BS-200</td>
+                  <td class="text-center">$10.99</td>
+                  <td class="text-center">1</td>
+                  <td class="text-right">$10.99</td>
+                </tr>
+                <tr>
+                  <td>BS-400</td>
+                  <td class="text-center">$20.00</td>
+                  <td class="text-center">3</td>
+                  <td class="text-right">$60.00</td>
+                </tr>
+                <tr>
+                  <td>BS-1000</td>
+                  <td class="text-center">$600.00</td>
+                  <td class="text-center">1</td>
+                  <td class="text-right">$600.00</td>
+                </tr>
+                <tr>
+                  <td class="thick-line"></td>
+                  <td class="thick-line"></td>
+                  <td class="thick-line text-center">
+                    <strong>Subtotal</strong>
+                  </td>
+                  <td class="thick-line text-right">$670.99</td>
+                </tr>
+                <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center">
+                    <strong>Shipping</strong>
+                  </td>
+                  <td class="no-line text-right">$15</td>
+                </tr>
+                <tr>
+                  <td class="no-line"></td>
+                  <td class="no-line"></td>
+                  <td class="no-line text-center">
+                    <strong>Total</strong>
+                  </td>
+                  <td class="no-line text-right">$685.99</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

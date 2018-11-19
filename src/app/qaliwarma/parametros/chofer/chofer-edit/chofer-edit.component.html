@@ -1,0 +1,60 @@
+<button type="button" [routerLink]="['../',{flagRefreshReturn:this.flagRefreshReturn}]" class="btn btn-success">
+  Atras</button>
+
+<div class="card">
+
+  <div class="card-header">
+    DATOS DEL CHOFER
+  </div>
+
+  <br>
+
+  <form [formGroup]="choferForm">
+
+    <div class="row">
+      <label class="col-md-2" for="">Codigo</label>
+      <div class="col-md-2">
+        <input formControlName="idChofer" [(ngModel)]="this.choferModel.idChofer" type="text" class="form-control inputfield" readonly>
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-md-2" for="">Nombres</label>
+      <div class="col-md-6">
+        <input formControlName="nombres" [(ngModel)]="this.choferModel.nombres" type="text" class="form-control inputfield">
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-md-2" for="">Dni</label>
+      <div class="col-md-6">
+        <input formControlName="dni" [(ngModel)]="this.choferModel.dni" type="text" class="form-control inputfield">
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-md-2" for="">Nro Brevete</label>
+      <div class="col-md-6">
+        <input formControlName="numeroBrevete" [(ngModel)]="this.choferModel.numeroBrevete" type="text" class="form-control inputfield">
+      </div>
+    </div>
+
+
+    <hr>
+    <div class="row">
+
+      <div class="col-md-4">
+        <button [disabled]="!choferForm.valid" type="button" class="btn btn-sm btn-info" (click)="create()" *ngIf="this.choferModel.idChofer==0 else elseBlock">
+          <span class="fa fa-floppy-o"></span>&nbsp; Grabar</button>
+
+        <ng-template #elseBlock>
+          <button [disabled]="!choferForm.valid" type="button" class="btn btn-sm btn-info" (click)="update()" >
+            <span class="fa fa-floppy-o"></span>&nbsp; Actualizar</button>
+
+        </ng-template>
+      </div>
+
+    </div>
+  </form>
+
+</div>

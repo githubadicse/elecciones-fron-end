@@ -1,0 +1,62 @@
+<div class="container-fluid">
+  <button type="button" [routerLink]="['../']" class="btn btn-success">Atras</button>
+
+  <hr>
+  <p style="font-size:20px;"> {{title}}</p>
+
+  <div class="row">
+
+    <label class="control-label col-2">Almacen</label>
+    <div class="col-6">
+
+      <select class="form-control inputselect " [(ngModel)]="almacenModel" (change)="onChangeAlmacen($event)">
+
+        <option *ngFor="let almacen of almacensModel" [ngValue]="almacen">{{almacen.dscalmacen}}</option>
+      </select>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <div class="row">
+
+    <table class="table">
+      <thead class="thead-inverse">
+        <tr>
+
+          <th>Año</th>
+          <th>Mes</th>
+          <th>Estado</th>
+          <th>Opcion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let periodoalmacen of periodoalmacensModel ">
+          <td>{{periodoalmacen.anno}}</td>
+          <td>{{periodoalmacen.mes}}</td>
+          <td>{{periodoalmacen.estado}}</td>
+          <td>
+            <div *ngIf="periodoalmacen.estado == 'A'">
+              <button type="button" class="btn btn-outline-warning">Marcar</button>
+            </div>
+            <div *ngIf="periodoalmacen.estado == 'C'">
+              <button type="button" class="btn btn-outline-danger">Aperturar</button>
+            </div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <p-paginator rows="{{this.rows}}" totalRecords="{{this.totalRecords}}" (onPageChange)="paginate($event)"></p-paginator>
+
+
+  </div>
+
+
+
+</div>

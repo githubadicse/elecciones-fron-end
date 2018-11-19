@@ -1,0 +1,142 @@
+<p-growl [value]="this.msgPopup" [life]=1500>
+</p-growl>
+<button type="button" [routerLink]="['../']" class="btn btn-success">Atras</button>
+
+<div class="card">
+
+  <div class="card-header">
+    DATOS DEL PRODUCTO
+  </div>
+
+  <br>
+
+  <form [formGroup]="catalogoProductoForm">
+
+    <div class="row">
+      <label class="col-md-2" for="">Codigo</label>
+      <div class="col-md-2">
+        <input formControlName="idCatalogoProductoQaliwarma" type="text" class="form-control inputfield" readonly>
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-md-2" for="">Descripcion</label>
+      <div class="col-md-6">
+        <input formControlName="dscCatalogoProductoQaliwarma" type="text" class="form-control inputfield">
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-md-2" for="">Envase Tipo</label>
+      <div class="col-md-6">
+        <input formControlName="dscCatalogoProductoQaliwarma" type="text" class="form-control inputfield">
+      </div>
+    </div>
+
+    <div class="row">
+
+      <label class="col-md-2" for="">Producto Considerado en Entrega</label>
+      <div class="col-md-6">
+        <mat-checkbox class="example-margin" formControlName="entrega1">1</mat-checkbox>&nbsp;&nbsp;
+        <mat-checkbox class="example-margin" formControlName="entrega2">2</mat-checkbox>&nbsp;&nbsp;
+        <mat-checkbox class="example-margin" formControlName="entrega3">3</mat-checkbox>&nbsp;&nbsp;
+        <mat-checkbox class="example-margin" formControlName="entrega4">4</mat-checkbox>&nbsp;&nbsp;
+        <mat-checkbox class="example-margin" formControlName="entrega5">5</mat-checkbox>&nbsp;&nbsp;
+        <mat-checkbox class="example-margin" formControlName="entrega6">6</mat-checkbox>&nbsp;&nbsp;
+        <mat-checkbox class="example-margin" formControlName="entrega7">7</mat-checkbox>&nbsp;&nbsp;
+        <mat-checkbox class="example-margin" formControlName="entrega8">8</mat-checkbox>&nbsp;&nbsp;
+        <mat-checkbox class="example-margin" formControlName="entrega9">9</mat-checkbox>&nbsp;&nbsp;
+        <mat-checkbox class="example-margin" formControlName="entrega10">10</mat-checkbox>&nbsp;&nbsp;
+        <mat-checkbox class="example-margin" formControlName="entrega11">11</mat-checkbox>&nbsp;&nbsp;
+        <mat-checkbox class="example-margin" formControlName="entrega12">12</mat-checkbox>&nbsp;
+      </div>
+ 
+      
+    </div>
+    <div class="row">
+
+      <div class="col-md-4">
+        <button [disabled]="!catalogoProductoForm.valid" type="button" class="btn btn-sm btn-info" (click)="beforeSave()">
+          <span class="fa fa-floppy-o"></span>&nbsp; Grabar</button>
+
+      </div>
+
+    </div>
+
+    <!-- tabla para mostrar las presentaciones por año y numero de entrega -->
+    <hr>
+    <div class="tituloEdit">
+      <p>Parametros para la presentacion de los productos segun año y numero de entrega</p>
+    </div>
+    <div class="row">
+      <label class="col-md-2" for="">Periodo</label>
+      <input type="number" class="col-md-2 form-control inputfield" [(ngModel)]="this.anno" (change)="getProductoPresentacion()"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+
+    <div class="row">
+      <label class="col-md-2">Nro Entrega</label>
+      <input type="number" class="col-md-2 form-control inputfield" [(ngModel)]="this.numeroEntrega" (change)="getProductoPresentacion()"
+        [ngModelOptions]="{standalone: true}">
+    </div>
+
+
+    <button type="button" class="btn btn-outline-success btn-sm" (click)="getProductoPresentacion()">Refrescar/Actualizar</button>
+
+    <div class="row ml-0 mr-2">
+      <p-dataTable emptyMessage="No existe registros parar este periodo/entrega" [value]="this.productoPresentacionsModel" [editable]="true">
+        <p-header>
+          PRESENTACION DE PRODUCTOS
+        </p-header>
+
+        <p-column field="cantidadPresentacion" #idcategoria header="Val Entero" [style]="{'width':'90px'}" [editable]="true">
+        </p-column>
+
+        <p-column field="dscPresentacion" header="Descripcion Producto" [style]="{'width':'350px'}" [editable]="true">
+        </p-column>
+        <p-column field="factorVolumenPresentacion" header="Factor Vol" [style]="{'width':'90px'}" [editable]="true">
+        </p-column>
+        <p-column>
+          <ng-template let-data="rowData" pTemplate type="body">
+            <i (click)="createPresentacion(data)" *ngIf="data.idProductoPresentacion==0 else elseBlock" style="cursor: pointer;" class="fa fa-floppy-o fa-1x"
+              style="cursor: pointer;font-size:16px;color:blue" aria-hidden="true" data-toggle="tooltip" title="Grabar">
+            </i>
+
+            <ng-template #elseBlock>
+              <i (click)="updatePresentacion(data)" style="cursor: pointer;" class="fa fa-floppy-o fa-1x" style="cursor: pointer;font-size:16px;color:green"
+                aria-hidden="true" data-toggle="tooltip" title="Actualizar">
+              </i>
+
+            </ng-template>
+
+            &nbsp;
+            <i (click)="delete(data)" style="cursor: pointer;" class="fa fa-trash-o fa-1x" style="cursor: pointer;font-size:16px;color:red"
+              aria-hidden="true" data-toggle="tooltip" title="Eliminar/Quitar"></i>&nbsp;
+
+            <i (click)="verId(data)" style="cursor: pointer;" class="fa fa-search fa-1x" style="cursor: pointer;font-size:16px;color:lightcoral"
+              aria-hidden="true" data-toggle="tooltip" title="Ver Id"></i>&nbsp;
+          </ng-template>
+        </p-column>
+        <p-footer>
+          <div class="ui-helper-clearfix" style="width:100%">
+            <button type="button" pButton icon="fa-plus" style="float:left" (click)="addPresentacion()" label="Agregar Presentacion"></button>
+          </div>
+        </p-footer>
+      </p-dataTable>
+
+    </div>
+
+
+
+
+
+
+
+    <hr>
+
+
+
+
+  </form>
+
+</div>

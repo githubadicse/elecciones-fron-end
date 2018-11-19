@@ -1,0 +1,82 @@
+<p-blockUI [blocked]="blocked"></p-blockUI>
+<div [hidden]="!this.show">
+  <h3>
+    {{titulo}}
+  </h3>
+
+  <div style="height: 70%;">
+    <button type="button" class="btn btn-danger btn-circle" [routerLink]="['./edicion', {id:0}]" (click)="ocultarLista()" title="Crear Nueva Ruta">
+      <i class="fa fa-plus"></i>
+    </button>
+    <button type="button" class="btn btn-info btn-circle" [routerLink]="['./print', {id:0}]" title="Imprimir">
+      <i class="fa fa-print"></i>
+    </button>
+    <button type="button" class="btn btn-success btn-circle" (click)="showPanelBuscar()" title="Ver detalle de ruta de distribucion">
+      <i class="fa fa-search"></i>
+    </button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-info btn-circle float-right" (click)="actualizaPesoTotal()" title="Actualizar pesos">
+      <i class="fa fa-refresh"></i>
+    </button>
+    <br>
+    <br>
+
+
+
+
+    <div class="row">
+      <label class="col-md-2">Periodo</label>
+      <input type="number" class="col-md-3 form-control inputfield" [(ngModel)]="this.anno"  (change)="sendConsulta()"  >
+    </div>
+
+    <div class="row">
+      <label class="col-md-2">Nro Entrega</label>
+      <input type="number" class="col-md-3 form-control inputfield" [(ngModel)]="this.numeroEntrega"  (change)="sendConsulta()">
+    </div>
+
+
+
+
+
+
+    <!-- tabla de datos -->
+
+    <p-dataTable emptyMessage="No hay registros" [value]="rutaDistribucionsModel" [filterDelay]=500 [lazy]="true" (onFilter)="filter($event)"
+      selectionMode="single" [responsive]="true">
+
+      <p-column field="idRutaDistribucion" header="Codigo" [style]="{'width':'90px'}" [filter]="showPanelBuscarFlag">
+      </p-column>
+
+      <p-column field="dscRutaDistribucion" header="Nombre de Ruta" [style]="{'width':'250px'}" [filter]="showPanelBuscarFlag">
+      </p-column>
+
+      <p-column field="empleadoDistribuidor.nombres" header="Ditribuidor Responsable" [style]="{'width':'250px'}" [filter]="showPanelBuscarFlag">
+        </p-column>
+
+      <p-column>
+        <ng-template let-data="rowData" pTemplate type="body">
+          <i [routerLink]="['edicion', {id:data.idRutaDistribucion}]" (click)="ocultarLista()" style="cursor: pointer;" class="fa fa-pencil fa-1x"
+            aria-hidden="true" data-toggle="tooltip" title="Editar"></i>&nbsp;
+          <i style="cursor: pointer;" class="fa fa-trash-o fa-1x" aria-hidden="true" data-toggle="tooltip" title="Eliminar" (click)="delete(data)"></i>
+          &nbsp;&nbsp;
+
+          <i [routerLink]="['detalle', {id:data.idRutaDistribucion}]" style="cursor: pointer;" class="fa fa-search fa-1x" aria-hidden="true" data-toggle="tooltip" title="Detalle de ruta" (click)="ocultarLista()"></i>
+          &nbsp;&nbsp;
+          <i [routerLink]="['mapa',{id:data.idRutaDistribucion}]" style="cursor: pointer;" class="fa fa-map-marker fa-1x" aria-hidden="true" data-toggle="tooltip" title="Ver mapa"></i>
+        </ng-template>
+      </p-column>
+
+    </p-dataTable>
+
+  </div>
+
+  <ad-pagination [rowsForPageCbo]="[10,20,30,40]" [model]="this.rutaDistribucionsModel" [filterPage]=[this.filterPage] [controller]="'rutaDistribucion'"
+    [orden]="'idRutaDistribucion'" [_refreshPage]="this.refreshPage" (onPageChange)="this.refreshModel($event)"></ad-pagination>
+
+
+</div>
+
+
+<div class="container-fluit">
+  <router-outlet (activate)='onActivate($event)' (deactivate)='onDeactivate($event)'></router-outlet>
+</div>

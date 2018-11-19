@@ -1,0 +1,65 @@
+<div class="row">
+    <label class="col-md-2">Periodo</label>
+    <input type="number" class="col-md-3 form-control inputfield" [(ngModel)]="this.anno"    >
+  </div>
+
+  <div class="row">
+    <label class="col-md-2">Nro Entrega</label>
+    <input type="number" class="col-md-3 form-control inputfield" [(ngModel)]="this.numeroEntrega"  >
+  </div>
+
+
+  <br>
+  <br>
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" (click)="clickPestana1()" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Buscar Por Codigo Modular</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Por Ruta Distribucion</a>
+  </li>
+  <li class="nav-item">
+      <a class="nav-link" id="codmod-pendiente-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Cod. Modulares Pendientes</a>
+    </li>
+</ul>
+
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+      <form >
+
+        <p>
+          <mat-form-field>
+              <input #codigoModularId (keydown)="onKeydown($event)" matInput placeholder="Codigo Modular" [(ngModel)]="codigoModular" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+          <i (click)="buscarCodigoModular()"  style="cursor: pointer;" class="fa fa-search fa-1x" aria-hidden="true" data-toggle="tooltip" title="Buscar"></i>
+        </p>
+
+        <div [hidden]="!flagExiste" > 
+        <p>
+          <mat-form-field>
+                <input #nroGuiaId matInput placeholder="Nro Guia" [(ngModel)]="numeroGuia" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </p>
+
+          <button  class="btn btn-primary" (click)="update()">Grabar</button>
+        </div>
+        </form>
+  </div>
+  
+  
+  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+    <p>En desarrollo</p>
+
+  </div>
+
+  <div class="tab-pane fade" id="codmod-pendiente-tab" role="tabpanel" aria-labelledby="pills-profile-tab">
+      <p>En desarrollo</p>
+
+  </div>
+  
+</div>
+
+
+
+

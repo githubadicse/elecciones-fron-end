@@ -1,0 +1,36 @@
+<div class="container-fluit">
+
+    <p-blockUI [blocked]="blocked">
+      <div style="position:absolute;top:25%;left:50%;font-size:24px;">
+        <i class="fa fa-spinner fa-spin fa-3x fa-fw"  style="font-size:20px;" ></i>
+        <span style="font-size:20px;">Procesando ..... Por favor espere</span>
+      </div>
+    </p-blockUI>
+    <div class="tituloEdit">
+      {{titulo}}
+    </div>
+  
+    <form [formGroup]="dataForm">
+      <div class="row">
+        <label class="col-md-2">Periodo</label>
+        <input type="number" class="col-md-3 form-control inputfield" formControlName="anno" [(ngModel)]="this.anno">
+      </div>
+  
+      <div class="row">
+        <label class="col-md-2">Nro Entrega</label>
+        <input type="number" class="col-md-3 form-control inputfield" formControlName="numeroEntrega" [(ngModel)]="this.numeroEntrega">
+      </div>
+  
+      <br>
+      <div class="alert alert-info" role="success">
+        <strong>Atencion!</strong> Este proceso convierte los volumenes, a unidades segun presentacion asignados <br>
+        en el maestro de productos .
+      </div>
+      <br>
+      <button type="button" class="btn btn-outline-success" [disabled]="!dataForm.valid" (click)="calcular()">Procesar</button>
+  
+  
+    </form>
+  
+  
+  </div>

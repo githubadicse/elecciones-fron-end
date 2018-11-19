@@ -1,0 +1,85 @@
+.modal-headerx{
+    color:white;
+    height:23px;
+    padding:5px;
+    background-color:#179EB3;
+
+    -webkit-border-radius: 0;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 0;
+    -moz-background-clip: padding;
+    border-radius: 6px 6px 0px 0px;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0 0 40px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 0 40px rgba(0,0,0,.5);
+    box-shadow: 0 0 40px rgba(0,0,0,.5);
+    /*color: #000;*/
+    /*background-color: #fff;*/
+    border: rgba(0,0,0,0);    
+
+}
+
+.modal-title{
+    font-size: 0.9em;
+    margin-bottom: 3px;
+}
+
+#myModal {
+top:10%;
+
+
+}
+
+.modal-header-info {
+    color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #5bc0de;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+}
+
+.registro-producto{
+    background: #19551f;
+    padding: 4px;
+    
+}
+
+.registro-producto .form-container{
+    display: table;
+    max-width: 800px;
+    width: 99%; 
+    margin:  0 auto;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+
+.registro-producto .image-holder {
+  display:table-cell;
+  width: auto;
+  height: 100px;
+  background: #505e6c;
+  
+
+  /*background:url(meeting.jpg);*/
+  background-size:cover;
+}
+
+
+.registro-producto form {
+  display:table-cell;
+  width:450px;
+  background-color:#ffffff;
+  padding:3px 3px;
+  color:#505e6c;
+}
+
+
+
+
+
+

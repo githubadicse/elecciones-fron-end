@@ -1,0 +1,127 @@
+<h1>Control tipo de documento -SOLO TIPO DE DOCUMENTO- (comprobante)</h1>
+<div class="card border border-primary">
+  <div class="card-body">
+    <app-comp-find-tipo-documento-sunat-solo (getObject)="_getObject($event)"></app-comp-find-tipo-documento-sunat-solo>
+    <br><br>
+    return TipoDocumentoModel:  {{tipoDocumento | json}}
+  </div>
+</div>
+
+
+
+<h1>Control tipo de documento (comprobante)</h1>
+
+<!-- <app-comp-tipo-tipo-documento-sunat></app-comp-tipo-tipo-documento-sunat> -->
+
+<div class="card border border-primary">
+  <div class="card-body">
+    <app-comp-tipo-documento-sunat 
+      [filtros]="filtroro" 
+      [SelectValorInicial]="documentoInit" 
+      (onChange)="valorRecibido=$event"
+      [mostrarSeries]=_mostrarSerie 
+      [selectSerie]=null 
+      [disabledSerie]=_disabledSerie>
+    </app-comp-tipo-documento-sunat>
+  </div>
+</div>
+
+
+
+<br>
+<p>Valor devuleto: </p>
+<span class="text-success">{{valorRecibido | json}}</span>
+
+<br>
+<br>
+<hr>
+<br>
+
+<h2>Propiedades</h2>
+
+<table class="table">
+  <thead>
+    <th>Nombre</th>
+    <th>Descripcion</th>
+  </thead>
+  <tr>
+    <td>
+      <strong>[filtros]</strong>
+      <p>Opcional</p>
+    </td>
+    <td>
+       <p>Iniciar o indicar dinamicamente un filtro, ejemplo: "idTipoDocumento:122:equals"</p>
+       <p>Composicion de filtro:  campofiltrar:valor:matchmode </p>
+       <p>Este filtro se cocina en el servicio <strong>config.service</strong> con la funcion <strong>jsonFilter(string)</strong></p>       
+       <p>Escriba un filtro: </p>
+      <input type="text" (keyup.enter)="setFiltro(txt.value)" #txt placeholder="idTipoDocumento:122:equals">
+      <button class="btn btn-success btn-sm" (click)="setFiltro(txt.value)">Filtrar</button>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>[SelectValorInicial]</strong>
+      <p>Opcional</p>
+    </td>
+    <td>
+       <p>selecciona el valor que mostrara al iniciar, puede ser un modelo | 1(seleccionar el primero) | null o vacio para no hacer ninguna seleccion</p>
+      <p>si el valor es null y en la lista solo existe un elemento muestra, entonces muestra el unico elemento existente</p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>[mostrarSeries]</strong>
+      <p>Boolean</p>
+      <mat-slide-toggle [checked]="_mostrarSerie" (change)="_mostrarSerie = $event.checked">Mostrar</mat-slide-toggle>
+    </td>
+    <td>
+      Muestra el control select con las series que pertenecen al comprobante seleccionado      
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>[disabledSerie]</strong>
+      <p>Boolean</p>
+      <mat-slide-toggle [checked]="_disabledSerie" (change)="_disabledSerie = $event.checked">Deshabilitar</mat-slide-toggle>
+    </td>
+    <td>
+      <p> habilita o desabilita el control select de la serie </p>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>[selectetSerie]</strong>
+      <p>string | number</p>
+    </td>
+    <td>
+      Pre Selecciona la serie con el idserie, si no 
+      <p>si el valor es null y en la lista solo existe un elemento muestra, entonces muestra el unico elemento existente</p>
+    </td>
+  </tr>
+
+</table>
+
+<br>
+<hr>
+<br>
+<h2>Eventos emitidos</h2>
+
+<table class="table">
+  <thead>
+    <th>Nombre</th>
+    <th>Descripcion</th>
+  </thead>
+  <tr>
+  <td>
+    <strong>(onChange)</strong>
+    <br>
+    <span>devuelve json</span>
+  </td>  
+  <td>
+
+    <p>Devuelve un json con esta estructura <strong>(tipoDocumento | numerador | correlativo)</strong></p>    
+    <p>Este es el valor devuelto actualmente:</p>
+    <span class="text-success">{{valorRecibido | json}}</span>     
+  </td>
+  </tr>
+</table>

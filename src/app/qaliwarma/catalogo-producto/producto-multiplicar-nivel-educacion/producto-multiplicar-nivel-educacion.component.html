@@ -1,0 +1,92 @@
+<div class="container-fluit">
+  <button type="button" [routerLink]="['../']" class="btn btn-success">
+    Atras</button>
+  <div class="titulo">
+    PARAMETRO FACTOR DE MULTIPLICACION PARA PPRODUCTOS
+  </div>
+  <div>
+    <small>
+      Ejemplo : Si la galleta 1 tenemos como presentacion 0.30gr, y las especificaciones tecnicas indican que se debe
+      <br> entregar presentacion de 0.60gr, y este ultimo no existe en el mercado, aca es donde se debe indicar que
+      <br> la presentacion de 0.30gr debe ser duplicada, por lo cual se debe indicar en la columna factor 2.
+    </small>
+  </div>
+  <hr>
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Periodo</label>
+    <input type="number" class="form-control col-2 inputfield" [(ngModel)]="periodo" (change)="sendConsulta()">
+  </div>
+
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Nro Entrega</label>
+    <input type="number" class="form-control col-2 inputfield" [(ngModel)]="nEntrega" (change)="sendConsulta()">
+  </div>
+
+  <!-- Producto -->
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Producto</label>
+    <select class="form-control col-4 inputselect" [(ngModel)]="catalogoProductoQaliwarma" (ngModelChange)="setCatalogoProducto($event)">
+      <option value="">Seleccione</option>
+      <option *ngFor="let item of this.catalogoProductosQaliwarma" [ngValue]="item">{{item.dscCatalogoProductoQaliwarma}}</option>
+    </select>
+  </div>
+
+  <!-- Presentacion producto -->
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Presentacion</label>
+    <select class="form-control col-4 inputselect" [(ngModel)]="productoPresentacionModel" (ngModelChange)="setProductoPresentacion($event)">
+      <option value="">Seleccione</option>
+      <option *ngFor="let item of this.productoPresentacionsModel" [ngValue]="item">{{item.dscPresentacion}} X {{item.factorVolumenPresentacion}} </option>
+    </select>
+  </div>
+
+  <!-- Nivel de educacion -->
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Nivel de educacion</label>
+    <select class="form-control col-4 inputselect" [(ngModel)]="nivelEducacionModel" (ngModelChange)="setNivelEducacion($event)">
+      <option value="">Seleccione</option>
+      <option *ngFor="let item of this.nivelEducacionsModel" [ngValue]="item">{{item.dscNivelEducacion}}</option>
+    </select>
+  </div>
+</div>
+
+<br>
+
+<p-table [value]="this.catalogoMultiplicarNivelEducacionsModel">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Producto</th>
+      <th>Presentacion</th>
+      <th>Periodo</th>
+      <th>Entrega</th>
+      <th>Factor</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-catalogo>
+    <tr>
+      <td>{{catalogo.catalogoProductoQaliwarma.dscCatalogoProductoQaliwarma}}</td>
+      <td>{{catalogo.productoPresentacion.dscPresentacion}} X {{catalogo.productoPresentacion.factorVolumenPresentacion}}</td>
+      <td>{{catalogo.anno}}</td>
+      <td>{{catalogo.numeroEntrega}}</td>
+      <td pEditableColumn>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input type="text" [(ngModel)]="catalogo.factor">
+
+
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{catalogo.factor}}
+          </ng-template>
+        </p-cellEditor>
+
+      </td>
+      <td>
+
+        <i (click)="update(rowData)" style="cursor: pointer;" class="fa fa-floppy-o fa-1x" aria-hidden="true" data-toggle="tooltip"
+          title="Grabar" style="font-size:14px;"></i>&nbsp;
+
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

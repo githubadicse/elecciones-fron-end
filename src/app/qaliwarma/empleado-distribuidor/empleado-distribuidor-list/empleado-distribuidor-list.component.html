@@ -1,0 +1,58 @@
+<div [hidden]="!this.show">
+  <h3 *ngIf="!isBuscador">
+    {{titulo}}
+  </h3>
+  <h3 *ngIf="isBuscador">
+      <button type="button" (click)="eventBackFill()" class="btn btn-success">
+        Atras</button>
+        <br>
+      Buscador de empleados distribuidores
+    </h3>
+  <div style="height: 70%;">
+    <div *ngIf="!isBuscador">
+      <button type="button" class="btn btn-danger btn-circle" [routerLink]="['./edicion', {id:0}]" (click)="ocultarLista()">
+        <i class="fa fa-plus"></i>
+      </button>
+      <button type="button" class="btn btn-info btn-circle" [routerLink]="['./print', {id:0}]">
+        <i class="fa fa-print"></i>
+      </button>
+      <button type="button" class="btn btn-success btn-circle" (click)="showPanelBuscar()">
+        <i class="fa fa-search"></i>
+      </button>
+   
+    </div>
+    <!-- tabla de datos -->
+    <br>
+    <br>
+    <p-dataTable emptyMessage="No hay registros" [value]="empleadoDistribuidorsModel" [filterDelay]=500 [lazy]="true" (onFilter)="filter($event)"
+      selectionMode="single" [responsive]="true">
+
+      <p-column field="idEmpleadoDistribuidor" header="id" [style]="{'width':'120px'}" [filter]="showPanelBuscarFlag">
+      </p-column>
+
+      <p-column field="nombres" header="Empleado" [style]="{'width':'250px'}" [filter]="showPanelBuscarFlag"> </p-column>
+      <p-column field="dni" header="DNI" [style]="{'width':'100px'}" [filter]="showPanelBuscarFlag"> </p-column>
+      <p-column>
+        <ng-template let-data="rowData" pTemplate type="body">
+          <i *ngIf="!isBuscador" [routerLink]="['edicion', {id:data.idEmpleadoDistribuidor}]" (click)="ocultarLista()" style="cursor: pointer;"
+            class="fa fa-pencil fa-2x" aria-hidden="true" data-toggle="tooltip" title="Editar"></i>&nbsp;
+          <i *ngIf="!isBuscador" style="cursor: pointer;" class="fa fa-trash-o fa-2x" aria-hidden="true" data-toggle="tooltip" title="Eliminar"
+            (click)="delete(data)"></i>&nbsp;&nbsp;
+          <button *ngIf="isBuscador" type="button" class="btn btn-primary btn-sm" (click)="eventBackFill(data)">Seleccionar</button>
+        </ng-template>
+      </p-column>
+
+    </p-dataTable>
+
+  </div>
+
+  <ad-pagination [rowsForPageCbo]="[10,20,30,40]" [model]="this.vehiculosModel" [filterPage]=[this.filterPage] [controller]="'empleadoDistribuidor'"
+    [orden]="'idEmpleadoDistribuidor'" [_refreshPage]="this.refreshPage" (onPageChange)="this.refreshModel($event)"></ad-pagination>
+
+
+</div>
+
+
+<div class="container-fluit">
+  <router-outlet (activate)='onActivate($event)' (deactivate)='onDeactivate($event)'></router-outlet>
+</div>

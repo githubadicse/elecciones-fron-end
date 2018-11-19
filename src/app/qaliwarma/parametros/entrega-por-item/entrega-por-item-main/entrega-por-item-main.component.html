@@ -1,0 +1,152 @@
+<div class="container-fluit">
+
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Año</label>
+    <input type="number" class="form-control col-2 inputfield" [(ngModel)]="anno" (change)="sendConsulta()">
+  </div>
+
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Nro Entrega</label>
+    <input type="number" class="form-control col-2 inputfield" [(ngModel)]="numeroEntrega" (change)="sendConsulta()">
+  </div>
+
+  <br>
+
+  <p-table [value]="entregaPoritemsModel" [responsive]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Item</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Chofer</th>
+        <th>Vehiculo</th>
+        <th>Transportista</th>
+        <th>Punto de Partida</th>
+        <th>Cliente Emision </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-col let-rowData>
+      <tr>
+        <td>{{rowData.itemEntrega.dscitem}}</td>
+
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input" >
+              <p-calendar [inputStyle]="{'width':'100%'}" [(ngModel)]="rowData.inicioAtencion" dataType="string" [locale]="es" dateFormat="dd/mm/yy"></p-calendar> 
+            
+
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData.inicioAtencion}}
+            </ng-template>
+          </p-cellEditor>
+
+
+        </td>
+
+        <td pEditableColumn>
+            <p-cellEditor>
+              <ng-template pTemplate="input" >
+                <p-calendar [inputStyle]="{'width':'100%'}" [(ngModel)]="rowData.finAtencion" dataType="string" [locale]="es" dateFormat="dd/mm/yy"></p-calendar> 
+              
+  
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData.finAtencion}}
+              </ng-template>
+            </p-cellEditor>
+  
+  
+          </td>
+    
+  
+
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown [options]="this.chofersModel" optionLabel="nombres" placeholder="Seleccionar ..." [autoWidth]="false" [style]="{'width':'100%'}"
+                [(ngModel)]="rowData.chofer"></p-dropdown>
+
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData.chofer.nombres}}
+            </ng-template>
+          </p-cellEditor>
+
+
+        </td>
+
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown [options]="this.vehiculosModel" optionLabel="numeroPlaca" placeholder="Seleccionar ..." [autoWidth]="false" [style]="{'width':'100%'}"
+                [(ngModel)]="rowData.vehiculo"></p-dropdown>
+
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData.vehiculo.numeroPlaca}}
+            </ng-template>
+          </p-cellEditor>
+
+
+        </td>
+
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown [options]="this.transportistasModel" optionLabel="proveedorcliente.razonsocial" placeholder="Seleccionar ..." [autoWidth]="false"
+                [style]="{'width':'100%'}" [(ngModel)]="rowData.transportista"></p-dropdown>
+
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData.transportista.proveedorcliente.razonsocial}}
+            </ng-template>
+          </p-cellEditor>
+
+
+        </td>
+
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown [options]="this.puntoPartidasModel" optionLabel="direccion" placeholder="Seleccionar ..." [autoWidth]="false"
+                [style]="{'width':'100%'}" [(ngModel)]="rowData.puntoPartida"></p-dropdown>
+
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData.puntoPartida.direccion}}
+            </ng-template>
+          </p-cellEditor>
+
+
+        </td>
+
+        <td pEditableColumn>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <p-dropdown [options]="this.proveedorClientesModel" optionLabel="razonsocial" placeholder="Seleccionar ..." [autoWidth]="false"
+                [style]="{'width':'100%'}" [(ngModel)]="rowData.proveedorcliente"></p-dropdown>
+
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData.proveedorcliente.razonsocial}}
+            </ng-template>
+          </p-cellEditor>
+
+
+        </td> 
+
+
+        <td>
+          
+            <i  (click)="update(rowData)" style="cursor: pointer;"
+              class="fa fa-floppy-o fa-1x" aria-hidden="true" data-toggle="tooltip" title="Grabar" style="font-size:14px;"></i>&nbsp;
+          
+        </td>
+
+
+
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

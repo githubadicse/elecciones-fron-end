@@ -1,0 +1,120 @@
+<div class="container-fluit">
+
+  <ul class="nav nav-pills" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="pill" href="#home">Numero Guia</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="pill" href="#menu1">Codigo Modular</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="pill" href="#menu2">Item</a>
+    </li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div id="home" class="container tab-pane active">
+      <br>
+      <h3>IMPRESION DE GUIA DE REMISION POR SERIE Y NUMERO</h3>
+      <div class="row">
+        <div class="form-group">
+          <label for="exampleInputFile">Serie</label>
+          <input type="number" class="form-control" [(ngModel)]="serie">
+          <small id="fileHelp" class="form-text text-muted">Serie del documento</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for="exampleInputFile">Numero</label>
+          <input type="number" class="form-control" [(ngModel)]="numero">
+          <small id="fileHelp" class="form-text text-muted">Numero del documento.</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Indicates a successful or positive action -->
+        <button type="button" class="btn btn-success" (click)="getGuiaRemisionPorSerieNumero()">Preview</button>
+      </div>
+
+    </div>
+    <div id="menu1" class="container tab-pane fade">
+      <br>
+      <h3>IMPRESION DE GUIA DE REMISION POR CODIGO MODULAR</h3>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="exampleInputFile">Periodo</label>
+          <input type="number" class="form-control" [(ngModel)]="anno">
+          <small class="form-text text-muted">Año de trabajo para la entrega de viveres</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for="exampleInputFile">Numero Entrega</label>
+          <input type="number" class="form-control" [(ngModel)]="numeroEntrega">
+          <small class="form-text text-muted">Numero de entrega para el periodo seleccionado</small>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label for="exampleInputFile">Codigo Modular</label>
+          <input type="text" class="form-control" [(ngModel)]="codigoModular" aria-describedby="fileHelp">
+          <small class="form-text text-muted">Numero Codigo Modular.</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Indicates a successful or positive action -->
+        <button type="button" class="btn btn-success" (click)="getGuiaRemisionPorCodigoModular()">Preview</button>
+      </div>
+    </div>
+    <div id="menu2" class="container tab-pane fade">
+      <br>
+      <h3>IMPRESION DE GUIA DE REMISION POR ITEM REPARTO</h3>
+
+      <div class="ml-3">
+
+        <!-- impresion por item -->
+        <div class="row">
+          <div class="form-group">
+            <label for="exampleInputFile">Periodo</label>
+            <input type="number" class="form-control inputselect" [(ngModel)]="anno">
+            <small class="form-text text-muted">Año de trabajo para la entrega de viveres</small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label for="exampleInputFile">Numero Entrega</label>
+            <input type="number" class="form-control" [(ngModel)]="numeroEntrega">
+            <small class="form-text text-muted">Numero de entrega para el periodo seleccionado</small>
+          </div>
+        </div>
+        <div class="row">
+
+
+          <div class="form-group">
+            <label for="exampleInputFile">Item</label>
+            <select class="form-control inputselect" [(ngModel)]="itemEntregaModel" (ngModelChange)="setItem($event)">
+              <option value="">Seleccione</option>
+              <option *ngFor="let item of this.itemEntregasModel" [ngValue]="item">{{item.dscitem}}</option>
+            </select>
+          </div>
+
+
+        </div>
+
+        <div class="row">
+          <!-- Indicates a successful or positive action -->
+          <button type="button" class="btn btn-success" (click)="getGuiaRemisionPorItemAnno()">Preview</button>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+
+
+</div>

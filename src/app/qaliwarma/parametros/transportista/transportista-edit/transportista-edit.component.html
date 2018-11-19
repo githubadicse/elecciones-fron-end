@@ -1,0 +1,47 @@
+<button type="button" [routerLink]="['../',{flagRefreshReturn:flagRefreshReturn}]" class="btn btn-success">
+  Atras</button>
+<div class="card">
+  <div class="card-header">
+    DATOS DEL TRANSPORTISTA
+  </div>
+
+  <div class="card-block">
+
+    <form [formGroup]="transportistaForm">
+
+      <div class="row">
+        <label for="id" class="col-md-2">Id</label>
+        <input formControlName="idTransportista" [(ngModel)]="this.transportistaModel.idTransportista" readonly type="text" class="form-control col-md-3 inputfield">
+      </div>
+
+      <div class="row">
+        <label for="id" class="col-md-2">Proveedor</label>
+        <div class="col-md-4" style="margin-left: -15px">
+          <p-dropdown formControlName="proveedorcliente" [options]="proveedorclientesModel" [(ngModel)]="this.transportistaModel.proveedorcliente"
+            placeholder="Seleccione" optionLabel="razonsocial" [showClear]="true"></p-dropdown>
+        </div>
+
+      </div>
+
+
+    </form>
+
+
+    <hr>
+    <div class="row">
+
+      <div class="col-md-4">
+        <button [disabled]="!transportistaForm.valid" type="button" class="btn btn-sm btn-info" (click)="create()" *ngIf="this.transportistaModel.idTransportista==0 else elseBlock">
+          <span class="fa fa-floppy-o"></span>&nbsp; Grabar</button>
+
+        <ng-template #elseBlock>
+          <button [disabled]="!transportistaForm.valid" type="button" class="btn btn-sm btn-info" (click)="update()">
+            <span class="fa fa-floppy-o"></span>&nbsp; Actualizar</button>
+
+        </ng-template>
+      </div>
+
+    </div>
+
+  </div>
+</div>

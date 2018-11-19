@@ -1,0 +1,160 @@
+<p-growl [value]="this.msgPopup" [life]=1500>
+
+</p-growl>
+<button type="button" [routerLink]="['../']" class="btn btn-success">Atras</button>
+
+<form [formGroup]="proveedorclienteForm" spellcheck=false>
+
+  <div class="card" style="font-size:10px;">
+    <div class="card-header">DATOS DEL CLIENTE / PROVEEDOR</div>
+    <div class="card-block">
+
+      <br>
+
+      <div class="form-group row">
+        <label class="control-label col-sm-2" >Id Cliente</label>
+        <div class="col-sm-2">
+          <input readonly type="text" formControlName="idproveedorcliente" class="form-control inputfield" placeholder="Nombre de la empresa" [(ngModel)]="proveedorclienteModel.idproveedorcliente" >
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="control-label col-sm-2">Razon social</label>
+        <div class="col-sm-8">
+          <input type="text" formControlName="razonsocial" class="form-control inputfield" placeholder="Nombre de la empresa" [(ngModel)]="proveedorclienteModel.razonsocial">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="control-label col-sm-2">Representante</label>
+        <div class="col-sm-8">
+          <input formControlName="representante" type="text" class="form-control inputfield" placeholder="Representante legal" [(ngModel)]="proveedorclienteModel.representante">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="control-label col-sm-2">Tipo Documento</label>
+
+        <div class="col-sm-3">
+          <select formControlName="documentoidentificacion" class="form-control inputselect" [(ngModel)]="proveedorclienteModel.documentoidentificacion">
+            <option *ngFor="let documento of documentoidentificacionsModel" 
+            [selected]="documento.iddocumentoidentificacion == (this.proveedorclienteModel.documentoidentificacion==null?'':this.proveedorclienteModel.documentoidentificacion.iddocumentoidentificacion)"
+              [ngValue]="documento"
+              
+              >
+              {{documento.dscdocumentoidentificacion}}
+            </option>
+          </select>
+        </div>
+
+
+        <label class="control-label col-sm-2">Nro Documento</label>
+        <div class="col-sm-3">
+          <input formControlName="nrodocumento" type="text" class="form-control inputfield" placeholder="ingrese nro doc" [(ngModel)]="proveedorclienteModel.nrodocumento">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="control-label col-sm-2">Telefonos </label>
+        <div class="col-sm-8">
+          <input formControlName="telefono" type="text" class="form-control inputfield" placeholder="Telefonos" [(ngModel)]="proveedorclienteModel.telefono" >
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="control-label col-sm-2">e-mail</label>
+        <div class="col-sm-8">
+          <input formControlName="email" type="email" class="form-control inputfield" placeholder="correo electronico" [(ngModel)]="proveedorclienteModel.email">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="control-label col-sm-2">Contacto 1</label>
+        <div class="col-sm-8">
+          <input formControlName="contacto1" type="text" class="form-control inputfield" placeholder="nombres del contacto" [(ngModel)]="proveedorclienteModel.contacto1">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="control-label col-sm-2">Contacto 2</label>
+        <div class="col-sm-8">
+          <input formControlName="contacto2" type="text" class="form-control inputfield" placeholder="nombres del contacto" [(ngModel)]="proveedorclienteModel.contacto2">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</form>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">DIRECCION FISCAL</div>
+  <div class="panel-body">
+
+    <p-dataTable #dt [value]="this.proveedorclienteModel.proveedorclientedireccions" [editable]="true" exportFilename="direcciones" spellcheck=false>
+      <p-header>
+
+        <div class="ui-helper-clearfix">
+          <button (click)="newDireccion()" type="button" class="btn btn-danger btn-circle" iconPos="left" style="float:left" >
+            <i class="fa fa-plus"></i>
+          </button>
+        </div>
+
+      </p-header>
+      <p-column field="direccion" header="Direccion" [editable]="true" ></p-column>
+      <p-column>
+        <ng-template let-data="rowData" pTemplate type="body">
+              <i style="cursor: pointer;" class="fa fa-trash-o fa-1x" aria-hidden="true" data-toggle="tooltip" title="Eliminar" (click)="confirm(data)"></i>
+        </ng-template>
+      </p-column>
+
+
+    </p-dataTable> 
+
+    <div [hidden]="!this.showDireccionAdd">
+      <form [formGroup]="direccionForm">
+        <div class="card" style="font-size:10px;">
+          <div class="card-header">DATOS DOMICILIO FISCAL</div>
+          <br>
+
+          <div class="form-group row">
+            <label class="control-label col-sm-2">Direccion</label>
+            <div class="col-sm-8">
+              <input type="text" formControlName="direccion" class="form-control inputfield" placeholder="Digite la direccion de la empresa" spellcheck="false">
+            </div>
+            
+          </div>
+
+          <br>
+          <div class="col-3">
+            <button (click)="addDireccion()" [disabled]="!direccionForm.valid" type="button" class="btn btn-primary">Agregar Direccion</button>
+          </div>
+          <br>
+
+        </div>
+
+
+      </form>
+    </div> 
+
+
+
+
+  </div>
+  <br>
+  <!-- <div class="col-3">
+    <button (click)="save()" [disabled]="!proveedorclienteForm.valid"
+      type="button" class="btn btn-success">Grabar Ficha</button>
+  </div> -->
+
+  <div class="col-md-3">
+    <button [disabled]="!proveedorclienteForm.valid" type="button" class="btn btn-sm btn-info" (click)="create()" *ngIf="proveedorclienteModel.idproveedorcliente==0 else elseBlock">
+      <span class="fa fa-floppy-o"></span>&nbsp; Grabar</button>
+
+    <ng-template #elseBlock>
+      <button [disabled]="!proveedorclienteForm.valid" type="button" class="btn btn-sm btn-info" (click)="update()">
+        <span class="fa fa-floppy-o"></span>&nbsp; Actualizar</button>
+
+    </ng-template>
+  </div>
+</div>

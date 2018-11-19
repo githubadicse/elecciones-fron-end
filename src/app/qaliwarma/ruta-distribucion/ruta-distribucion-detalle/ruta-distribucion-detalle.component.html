@@ -1,0 +1,128 @@
+<div [hidden]="!this.show">
+
+
+
+  <button type="button" [routerLink]="['../',{flagRefreshReturn:flagRefreshReturn}]" class="btn btn-success">
+    Atras</button>
+
+
+  <div class="card">
+    <div class="card-header">
+      RUTA DE DISTRIBUCION
+    </div>
+    <br>
+    <form [formGroup]="rutaDistribucionForm">
+
+      <div class="row">
+        <label class="col-md-2" for="">Codigo</label>
+        <div class="col-md-2">
+          <input formControlName="idRutaDistribucion" [(ngModel)]="this.rutaDistribucionModel.idRutaDistribucion" type="text" class="form-control inputfield"
+            readonly>
+        </div>
+
+
+      </div>
+      <div class="row">
+        <label class="col-md-2">Periodo</label>
+        <input readonly type="number" class="col-md-2 form-control inputfield ml-3" formControlName="anno" [(ngModel)]="this.rutaDistribucionModel.anno">
+
+        <label class="col-md-2">Nro Entrega</label>
+        <input readonly type="number" class="col-md-3 form-control inputfield ml-3" formControlName="numeroEntrega" [(ngModel)]="this.rutaDistribucionModel.numeroEntrega">
+      </div>
+
+
+      <div class="row">
+        <label class="col-md-2">Nombre Ruta</label>
+
+        <input readonly formControlName="dscRutaDistribucion" [(ngModel)]="this.rutaDistribucionModel.dscRutaDistribucion" type="text"
+          class="col-md-2 form-control inputfield ml-3">
+
+
+        <label class="col-md-2" for="">Responsable</label>
+        <div class="col-md-5">
+          <input readonly formControlName="nombres" [(ngModel)]="this.rutaDistribucionModel.empleadoDistribuidor.nombres" type="text"
+            class="form-control inputfield">
+
+        </div>
+      </div>
+
+      <hr>
+
+
+    </form>
+    <div class="row">
+    <div class="col-md-2">
+      <button (click)="ocultarLista()" type="button" class="btn btn-primary btn-sm">Buscar Codigo Modular</button>
+  
+    </div>
+    <div class="col-md-2">
+     
+        <button (click)="generarConsolidado()" type="button" class="btn btn-primary btn-sm">Generar Consolidado</button>
+      </div>
+  </div>
+    <br>
+
+    <!-- Tabla de rutas agregados por codigo modular -->
+    <p-dataTable emptyMessage="No hay registros" [value]="this.rutaDistribucionModel.rutaDistribucionDetalles" [filterDelay]=500
+      [lazy]="true" (onFilter)="filter($event)" selectionMode="single" [responsive]="true">
+
+      <!-- <p-column field="idRutaDistribucionDetalle" header="Codigo" [style]="{'width':'90px'}" [filter]="showPanelBuscarFlag"></p-column> -->
+      <p-headerColumnGroup>
+        <p-row>
+
+          <p-column header="" colspan="5"></p-column>
+          <p-column header="Nro IE"></p-column>
+          <p-column header="Suma Acumulado"></p-column>
+
+        </p-row>
+        <p-row>
+
+          <p-column header="" colspan="5"></p-column>
+          <p-column header="{{this.cantidaIE}}"></p-column>
+          <p-column header="{{this.totalAcum}}"></p-column>
+
+        </p-row>
+        <p-row>
+
+          <p-column header="Item"></p-column>
+          <p-column header="C.Poblado"></p-column>
+          <p-column header="Cod.Modular"></p-column>
+
+          <p-column header="Nombre IE"></p-column>
+          <p-column header="Direccion"></p-column>
+          <p-column header="Nivel"></p-column>
+          <p-column header="Peso"></p-column>
+        </p-row>
+      </p-headerColumnGroup>
+      <p-column field="requerimientoVolumen001.entregaPorItem.itemEntrega.dscitem" header="item" [style]="{'width':'100px'}" [filter]="showPanelBuscarFlag"></p-column>
+      <p-column field="requerimientoVolumen001.centroPoblado" header="C.Poblado" [style]="{'width':'100px'}" [filter]="showPanelBuscarFlag"></p-column>
+      <p-column field="requerimientoVolumen001.codigomodularIinstitucionEducativa.codigoModular" header="Codigo Modular" [style]="{'width':'100px'}"
+        [filter]="showPanelBuscarFlag"></p-column>
+      <p-column field="requerimientoVolumen001.codigomodularIinstitucionEducativa.nombreInstitucionEducativa" header="Nombre IE"
+        [style]="{'width':'100px'}" [filter]="showPanelBuscarFlag"></p-column>
+      <p-column field="requerimientoVolumen001.codigomodularIinstitucionEducativa.direccionInstitucionEducativa" header="Direccion"
+        [style]="{'width':'100px'}" [filter]="showPanelBuscarFlag"></p-column>
+      <p-column field="requerimientoVolumen001.nivelEducacion.dscNivelEducacion" header="Nivel" [style]="{'width':'100px'}" [filter]="showPanelBuscarFlag"></p-column>
+      <p-column field="requerimientoVolumen001.pesoTotal" header="Peso Total" [style]="{'width':'150px'}" [filter]="showPanelBuscarFlag"></p-column>
+      <p-column>
+        <ng-template let-data="rowData" pTemplate type="body">
+          <i [routerLink]="['edicion', {id:data.idRutaDistribucion}]" (click)="ocultarLista()" style="cursor: pointer;" class="fa fa-search fa-1x"
+            aria-hidden="true" data-toggle="tooltip" title="Editar"></i>&nbsp;
+          <i style="cursor: pointer;" class="fa fa-trash-o fa-1x" aria-hidden="true" data-toggle="tooltip" title="Eliminar" (click)="delete(data)"></i>
+
+          &nbsp;&nbsp;
+          <i style="cursor: pointer;" class="fa fa-key fa-1x" aria-hidden="true" data-toggle="tooltip" title="Ver key del registro" (click)="verkey(data)"></i>
+
+     
+        </ng-template>
+      </p-column>
+
+    </p-dataTable>
+
+
+  </div>
+</div>
+
+<div [hidden]="this.show">
+  <app-requerimiento-volumen-001-list [isBuscador]="true" [showPanelBuscarFlag]="true" (eventBack)="this.eventBack($event)"></app-requerimiento-volumen-001-list>
+</div>

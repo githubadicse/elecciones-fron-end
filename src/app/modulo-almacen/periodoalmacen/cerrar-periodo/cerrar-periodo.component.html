@@ -1,0 +1,34 @@
+<br>
+<div class="container-fluid">
+    <button type="button" [routerLink]="['../']" class="btn btn-success">Atras</button>
+    
+  <hr>
+  <p style="font-size:20px;"> {{title}}</p>
+
+
+
+  <div class="row">
+    <label class="control-label col-2">Almacen</label>
+    <div class="col-6">
+      <select class="form-control inputselect " [(ngModel)]="this.almacenModel" (change)="onChangeAlmacen($event)">
+          
+            <option *ngFor="let almacen of almacensModel" [ngValue]="almacen"  >{{almacen.dscalmacen}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="control-label col-2">Periodo a cerrar</label>
+    <div  class="col-6" style="margin-left:5px;">
+        {{this.msg}}
+    </div>
+
+ 
+  </div>
+  <hr>
+  <div class="row" *ngIf="existeAperturado" style="padding:10px;">
+      <button type="button" class="btn btn-danger" (click)="procesoCerrarperiodo()" >GENERAR CIERRE DE PERIODO</button>
+    </div>
+
+
+</div>

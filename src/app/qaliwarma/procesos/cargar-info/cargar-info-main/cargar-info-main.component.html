@@ -1,0 +1,31 @@
+<div class="container-fluit">
+
+  <div class="tituloEdit">
+    {{titulo}}
+  </div>
+
+  <form [formGroup]="dataForm">
+    <div class="row">
+      <label class="col-md-2">Periodo</label>
+      <input type="number" class="col-md-3 form-control inputfield" formControlName="anno" [(ngModel)]="this.anno">
+    </div>
+
+    <div class="row">
+      <label class="col-md-2">Nro Entrega</label>
+      <input type="number" class="col-md-3 form-control inputfield" formControlName="numeroEntrega" [(ngModel)]="this.numeroEntrega">
+    </div>
+
+    <br>
+    <div class="alert alert-danger" role="alert">
+      <strong>Atencion!</strong> Tenga en cuenta que al iniciar el proceso, los datos calculados se eliminaran para este periodo
+      y numero de entrea
+      <br/> Sera necesario, iniciar los procesos de calculo de volumenes y generacion de excel .
+    </div>
+    <br>
+    <button type="button" class="btn btn-outline-success" [disabled]="!dataForm.valid" (click)="cargarInfo()">Procesar</button>
+
+
+  </form>
+
+
+</div>

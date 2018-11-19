@@ -1,0 +1,71 @@
+
+
+
+<div class="container-fluit">
+<button type="button" [routerLink]="['../']" class="btn btn-success">
+  Atras</button>
+
+  
+<hr>
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Periodo</label>
+    <input type="number" class="form-control col-2 inputfield" [(ngModel)]="periodo" (change)="sendConsulta()">
+  </div>
+
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Nro Entrega</label>
+    <input type="number" class="form-control col-2 inputfield" [(ngModel)]="nEntrega" (change)="sendConsulta()">
+  </div>
+
+  <!-- Producto -->
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Producto</label>
+    <select class="form-control col-4 inputselect"[(ngModel)]="catalogoProductoQaliwarma" (ngModelChange)="setCatalogoProducto($event)">
+      <option value="">Seleccione</option>
+      <option *ngFor="let item of this.catalogoProductosQaliwarma" [ngValue]="item" >{{item.dscCatalogoProductoQaliwarma}}</option>
+    </select>
+  </div>
+
+ <!--  Region Alimentaria -->
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Region Alimentaria</label>
+    <select class="form-control col-4 inputselect" [(ngModel)]="regionAlimentariaModel" (ngModelChange)="setRegionAlimentaria($event)">
+      <option value="">Seleccione</option>
+      <option *ngFor="let item of this.regionAlimentariasModel" [ngValue]="item">{{item.dscRegionAlimentaria}}</option>
+    </select>
+  </div>
+
+  <!-- Horario de Alimentacion -->
+  <div class="row">
+    <label class="col-form-label col-2" for="periodo">Horario Alimentacion</label>
+    <select class="form-control col-4 inputselect" [(ngModel)]="horarioAlimentacionModel" (ngModelChange)="setHorarioAlimentacion($event)">
+      <option value="">Seleccione</option>
+      <option *ngFor="let item of this.horarioAlimentacionsModel" [ngValue]="item">{{item.dscHorarioAlimentacion}}</option>
+    </select>
+  </div>
+
+  <button type="button" class="btn btn-info" (click)="sendConsulta()">Consultar</button>
+
+  <br> <br>
+
+  <p-dataTable emptyMessage=" " [value]="this.catalogoBonificacionsModel"  [responsive]="true" [editable]="true">
+
+  <p-column field="regionAlimentaria.dscRegionAlimentaria"  header="Region Alimentaria" [style]="{'width':'180px'}" > </p-column>
+  <p-column field="productoPorNumeroEntrega.entregaPorItem.itemEntrega.dscitem"  header="Item" [style]="{'width':'180px'}" > </p-column>
+  <p-column field="productoPorNumeroEntrega.catalogoProductoQaliwarma.dscCatalogoProductoQaliwarma"  header="Producto" [style]="{'width':'180px'}" > </p-column>
+  <p-column field="horarioAlimentacion.dscHorarioAlimentacion"  header="Horario Alimentacion" [style]="{'width':'180px'}" > </p-column>
+  <p-column field="numeroDePreparacionPorEntrega" header="Nro preparacion" [style]="{'width':'100px'}" [editable]="true"> </p-column>
+
+  
+  <p-column>
+    <ng-template let-data="rowData" pTemplate type="body">
+      <i  (click)="grabarCatalogoBonificacion(data)" style="cursor: pointer;" class="fa fa-floppy-o fa-1x" aria-hidden="true"
+        data-toggle="tooltip" title="Grabar"></i>&nbsp;
+
+    </ng-template>
+  </p-column>
+
+</p-dataTable>
+
+  
+</div>

@@ -1,0 +1,167 @@
+<div class="container-fluit">
+
+  <div class="tituloEdit">
+    {{titulo}}
+  </div>
+
+  <form [formGroup]="dataForm">
+    <div class="row">
+      <!-- <label class="col-md-2">Periodo</label> -->
+      <div class="col-md-2">
+        <!-- <input type="number" class="col-md-3 form-control inputfield" formControlName="anno"> -->
+        <mat-form-field class="example-full-width">
+          <input matInput type="number" placeholder="Periodo" formControlName="anno">
+        </mat-form-field>
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <!-- <label class="col-md-2">Nro Entrega</label>
+      <input type="number" class="col-md-3 form-control inputfield" formControlName="numeroEntrega"> -->
+
+      <div class="col-md-2">
+        <!-- <input type="number" class="col-md-3 form-control inputfield" formControlName="anno"> -->
+        <mat-form-field class="example-full-width">
+          <input matInput type="number" placeholder="Numero Entrega" formControlName="numeroEntrega">
+        </mat-form-field>
+
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <!-- <label class="col-md-2">Item</label> -->
+      <div class="col-md-6">
+
+        <mat-form-field>
+          <mat-select placeholder="Item" [(value)]="selected" (selectionChange)="changeValue($event)">
+            <mat-option *ngFor="let item of itemEntregasModel" [value]="item.item">
+              {{item.dscitem}}
+            </mat-option>
+          </mat-select>
+
+        </mat-form-field>
+        <p>You selected: {{selected}}</p>
+      </div>
+
+    </div>
+
+    <br>
+    <!-- <div class="alert alert-danger" role="alert">
+      <strong>Atencion!</strong> Tenga en cuenta que al iniciar el proceso, los datos calculados se eliminaran para este periodo
+      y numero de entrea
+      <br/> Sera necesario, iniciar los procesos de calculo de volumenes y generacion de excel .
+    </div> -->
+    <br>
+    <button type="button" class="btn btn-outline-success" [disabled]="!dataForm.valid" (click)="cargarData()">Refresh</button>
+
+
+  </form>
+  <br>
+  <br>
+
+  <!-- <p-table [value]="ProductoPorNumeroEntregasModel">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Año</th>
+              <th>Nro Entrega</th>
+              <th>Item</th>
+              <th>Producto</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-data>
+          <tr>
+              <td>{{data.entregaPorItem.itemEntrega.anno}}</td>
+              <td>{{data.entregaPorItem.numeroEntrega.numeroEntregaValor}}</td>
+              <td>{{data.entregaPorItem.itemEntrega.item}}</td>
+              <td>{{data.catalogoProductoQaliwarma.dscCatalogoProductoQaliwarma}}</td>
+          </tr>
+      </ng-template>
+  </p-table>  -->
+
+
+
+</div>
+
+
+
+<table mat-table #table [dataSource]="ProductoPorNumeroEntregasModel" class="mat-elevation-z8" [class.isMobile]="isMobile">
+
+  <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Año Column -->
+  <ng-container matColumnDef="entregaPorItem.itemEntrega.anno">
+    <th mat-header-cell *matHeaderCellDef style="width: 90px;">Año</th>
+    <td mat-cell *matCellDef="let element">
+      <span class="mobile-label">Año:</span>
+      {{element.entregaPorItem.itemEntrega.anno}}</td>
+  </ng-container>
+
+  <!-- Numero Entrega Column -->
+  <ng-container matColumnDef="entregaPorItem.numeroEntrega.numeroEntregaValor">
+    <th mat-header-cell *matHeaderCellDef style="width: 90px; text-align: center;"> Nro Entrega </th>
+    <td mat-cell *matCellDef="let element" style="text-align: center;">
+      <span class="mobile-label">Nro:</span>
+      {{element.entregaPorItem.numeroEntrega.numeroEntregaValor}}</td>
+  </ng-container>
+
+  <!-- Item Entrega Column -->
+  <ng-container matColumnDef="entregaPorItem.itemEntrega.item">
+    <th mat-header-cell *matHeaderCellDef style="width: 190px;"> Item </th>
+    <td mat-cell *matCellDef="let element">
+      <span class="mobile-label">Item:</span>
+      {{element.entregaPorItem.itemEntrega.item}} </td>
+  </ng-container>
+
+
+  <!-- Descripcion producto Entrega Column -->
+  <ng-container matColumnDef="catalogoProductoQaliwarma.dscCatalogoProductoQaliwarma">
+    <th mat-header-cell *matHeaderCellDef style="width: 190px;"> Producto </th>
+    <td mat-cell *matCellDef="let element">
+      <span class="mobile-label">Producto:</span>
+      {{element.catalogoProductoQaliwarma.dscCatalogoProductoQaliwarma}} </td>
+  </ng-container>
+
+  <!-- Descripcion producto Entrega Column -->
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef style="width: 190px;">Edit</th>
+    <td mat-cell *matCellDef="let element">
+
+
+      <span class="mobile-label">Producto:</span>
+
+      <mat-select  placeholder="Producto" [compareWith]="compareFnProducto" [(ngModel)]="element.catalogoProductoQaliwarma">
+        <mat-option *ngFor="let producto of catalogoProductosModel" [value]="producto">
+          {{producto.dscCatalogoProductoQaliwarma}}
+        </mat-option>
+      </mat-select>
+
+
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef style="width: 90px; text-align: center; align-content: center; ">Accion</th>
+    <td mat-cell *matCellDef="let element" style="text-align: center;">
+
+     
+      <span class="mobile-label">Accion</span>
+
+      <i (click)="update(element)" class="fa fa-floppy-o fa-1x"
+        style="cursor: pointer;font-size:16px;color:blue ; text-align: center;" aria-hidden="true" data-toggle="tooltip" title="Grabar">
+      </i> 
+
+
+    </td>
+  </ng-container>
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+    class="example-element-row" [ngClass]="{'highlight': selectedRowIndex == row.idProductoPorNumeroEntrega}"
+    (click)="highlight(row)"></tr>
+</table>

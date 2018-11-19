@@ -1,0 +1,39 @@
+<mat-sidenav-container class="procesos-container">
+  
+
+    <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+
+
+        <div style="padding: 10px;">
+            <mat-nav-list class="sub-menu">
+                <mat-list-item > <a class="relative" [routerLink]="['./cargar-info']" routerLinkActive="open">Cargar Informacion de Entrega</a>  </mat-list-item>
+                <mat-list-item> <a class="relative" [routerLink]="['./procesar-calculo']" routerLinkActive="open">Generar Calculo</a>  </mat-list-item>
+                <mat-list-item> <a class="relative" [routerLink]="['./generar-xls-volumen']" routerLinkActive="open">Generar Xls Volumenes</a> </mat-list-item>
+                <hr>
+                <mat-list-item> <a class="relative" [routerLink]="['./eliminar-calculo']" routerLinkActive="open">Eliminar Calculo</a> </mat-list-item>
+
+                <mat-list-item> <a class="relative" [routerLink]="['./generar-guia']" routerLinkActive="open">Generar Guias</a> </mat-list-item>
+               
+            </mat-nav-list>
+    
+        </div>
+       
+    
+    </mat-sidenav>
+
+      <mat-sidenav-content>
+        
+        <div style="padding: 10px;">
+          <router-outlet></router-outlet>
+        </div>
+        <!-- Main
+        <p><mat-checkbox [(ngModel)]="opened">sidenav.opened</mat-checkbox></p>
+        <p><button mat-button (click)="sidenav.toggle()">Toogle</button></p>
+
+        <button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button> -->
+     
+      </mat-sidenav-content>
+
+
+
+</mat-sidenav-container>

@@ -1,0 +1,82 @@
+<button type="button" [routerLink]="['../',{flagRefreshReturn:flagRefreshReturn}]" class="btn btn-success">
+  Atras</button>
+
+
+<div class="card">
+  <div class="card-header">
+    DATOS DEL DISTRIBUIDOR
+  </div>
+  <br>
+  <form [formGroup]="empleadoDistribuidorForm">
+
+    <div class="row">
+      <label class="col-md-2" for="">Codigo</label>
+      <div class="col-md-2">
+        <input formControlName="idEmpleadoDistribuidor" [(ngModel)]="this.empleadoDistribuidorModel.idEmpleadoDistribuidor" type="text"
+          class="form-control inputfield" readonly>
+      </div>
+    </div>
+
+    <div class="row">
+        <label class="col-md-2" for="">DNI</label>
+        <div class="col-md-6">
+          <input formControlName="dni" [(ngModel)]="this.empleadoDistribuidorModel.dni" type="text" class="form-control inputfield">
+        </div>
+      </div>
+
+    <div class="row">
+      <label class="col-md-2" for="">Nombres</label>
+      <div class="col-md-6">
+        <input formControlName="nombres" [(ngModel)]="this.empleadoDistribuidorModel.nombres" type="text" class="form-control inputfield">
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-md-2" for="">Email</label>
+      <div class="col-md-6">
+        <input formControlName="email" [(ngModel)]="this.empleadoDistribuidorModel.email" type="text" class="form-control inputfield">
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-md-2" for="">Telefonos</label>
+      <div class="col-md-6">
+        <input formControlName="telefonos" [(ngModel)]="this.empleadoDistribuidorModel.telefonos" type="text" class="form-control inputfield">
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-md-2" for="">Celular Asignado</label>
+      <div class="col-md-6">
+        <input formControlName="celularAsignado" [(ngModel)]="this.empleadoDistribuidorModel.celularAsignado" type="text" class="form-control inputfield">
+      </div>
+    </div>
+
+    <div class="row">
+      <label class="col-md-2" for="">Imei</label>
+      <div class="col-md-6">
+        <input formControlName="imei" [(ngModel)]="this.empleadoDistribuidorModel.imei" type="text" class="form-control inputfield">
+      </div>
+    </div>
+
+
+    <hr>
+    <div class="row">
+
+      <div class="col-md-4">
+        <button [disabled]="!empleadoDistribuidorForm.valid" type="button" class="btn btn-sm btn-info" (click)="create()" *ngIf="this.empleadoDistribuidorModel.idEmpleadoDistribuidor==0 else elseBlock">
+          <span class="fa fa-floppy-o"></span>&nbsp; Grabar</button>
+
+        <ng-template #elseBlock>
+          <button [disabled]="!empleadoDistribuidorForm.valid" type="button" class="btn btn-sm btn-info" (click)="update()">
+            <span class="fa fa-floppy-o"></span>&nbsp; Actualizar</button>
+
+        </ng-template>
+      </div>
+
+    </div>
+
+  </form>
+
+
+</div>

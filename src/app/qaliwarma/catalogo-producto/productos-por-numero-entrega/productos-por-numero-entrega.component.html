@@ -1,0 +1,193 @@
+<div class="container-fluit">
+
+  <div class="container-fluit">
+    <button type="button" [routerLink]="['../']" class="btn btn-success">
+      Atras</button>
+    <hr>
+
+    <div class="row">
+      <label for="" class="col-sm-2 col-form-label">Nro Entrega</label>
+      <input type="number" class="form-control inputfield col-sm-2" [(ngModel)]="numeroEntrega" (change)="getByIdCatalogoProducto()">
+    </div>
+
+
+    <div class="row">
+      <label for="" class="col-sm-2 col-form-label">Año</label>
+      <input type="number" class="form-control inputfield col-sm-2" [(ngModel)]="periodo" (change)="getByIdCatalogoProducto()">
+    </div>
+
+
+    <button type="button" class="btn btn-info" (click)="getByIdCatalogoProducto()">Consultar</button>
+
+    <br>
+    <br>
+
+    <!-- relacion de items segun producto seleccionado -->
+    <p-dataTable emptyMessage="No hay item para este periodo o numero de entrega" [value]="this.productoPorNumerosEntregaModel"
+      [responsive]="true" [editable]="true" (onRowClick)="onRowClick($event)" [(selection)]="selection">
+
+      <!-- <p-column [style]="{'width':'38px'}" selectionMode="single"></p-column> -->
+      <p-column field="entregaPorItem.itemEntrega.dscitem" header="Item" [style]="{'width':'150px'}"> </p-column>
+      <p-column field="entregaPorItem.itemEntrega.anno" header="Año" [style]="{'width':'80px'}"> </p-column>
+      <p-column field="catalogoProductoQaliwarma.dscCatalogoProductoQaliwarma" header="Producto" [style]="{'width':'140px'}"> </p-column>
+      <p-column field="catalogoProductoQaliwarma.unidadmedida.abrunidadmedida" header="Und.Med" [style]="{'width':'60px'}"> </p-column>
+      <p-column field="dscComplementoProducto" header="Dsc Complemento" [style]="{'width':'150px'}" [editable]="true"> </p-column>
+      <p-column field="entregaPorItem.numeroEntrega.numeroEntregaValor" header="Nro Entrega" [style]="{'width':'70px'}"> </p-column>
+
+      <p-column>
+        <ng-template let-data="rowData" pTemplate type="body">
+          <!--   <i style="cursor: pointer;" class="fa fa-search fa-1x" aria-hidden="true" data-toggle="tooltip" title="Ver" (click)="getCatalogoMarcaByIdProductoPorNumeroEntrega(data)"></i>&nbsp;&nbsp; -->
+          <i style="cursor: pointer;" class="fa fa-save fa-2x" aria-hidden="true" data-toggle="tooltip" title="Grabar" (click)="grabarProductoPorNumeroEntrega(data)"></i>&nbsp;
+
+        </ng-template>
+      </p-column>
+
+    </p-dataTable>
+
+    <!-- relacion de presentacion segun item seleccionado en la tabla 1 -->
+    <p-dataTable emptyMessage="No hay presentacion para este producto" [value]="this.catalogoMarcasModel" [responsive]="true"
+      [editable]="true" (onRowClick)="onRowClickMarcasPorPresentacion($event)" [(selection)]="selectionMarca">
+      <p-header style="color:blue">MARCAS POR PRESENTACION</p-header>
+      <p-column field="productoPorNumeroEntrega.entregaPorItem.itemEntrega.dscitem" header="Item" [style]="{'width':'150px'}">
+      </p-column>
+      <p-column field="productoPresentacion.cantidadPresentacion" header="Presentacion" [style]="{'width':'150px'}"> </p-column>
+      <p-column field="productoPresentacion.dscPresentacion" header="Descripcion" [style]="{'width':'180px'}"> </p-column>
+      <p-column field="marca.dscmarca" header="Marca" [style]="{'width':'180px'}" [editable]="true">
+
+        <ng-template let-col let-catalogoMarca="rowData" pTemplate="editor">
+          <p-dropdown [(ngModel)]="catalogoMarca.marca" [options]="this.marcaArticulosModel" optionLabel="dscmarca" [autoWidth]="false"
+            [style]="{'width':'100%'}" required="true" appendTo="body"></p-dropdown>
+        </ng-template>
+
+      </p-column>
+      <p-column field="dsCatalogoMarca" header="Complemento" [style]="{'width':'180px'}" [editable]="true"> </p-column>
+
+      <p-column>
+        <ng-template let-data="rowData" pTemplate type="body">
+          <i style="cursor: pointer;" class="fa fa-save fa-2x" aria-hidden="true" data-toggle="tooltip" title="Grabar" (click)="grabarCatalogoMarca(data)"></i>&nbsp;
+          <!-- <i style="cursor: pointer;" class="fa fa-search fa-1x" aria-hidden="true" data-toggle="tooltip" title="Ver Lotes" (click)="getCatalogoLoteByIdCatalogoMarca(data)"></i>&nbsp;&nbsp; -->
+          <i style="cursor: pointer;" class="fa fa-plus-circle fa-3x" style="color:red;cursor: pointer;font-size:16px;" aria-hidden="true"
+            data-toggle="tooltip" title="Agregar Lote" (click)="addCatalogoLote(data)"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+
+            <i (click)="deleteCatalogoLote(data)" style="cursor: pointer;" class="fa fa-trash-o fa-1x" style="cursor: pointer;font-size:16px;color:red"
+            aria-hidden="true" data-toggle="tooltip" title="Eliminar/Quitar"></i>&nbsp;
+            
+            
+            <!-- <i style="cursor: pointer;" class="fa fa-plus-circle fa-3x" style="color:red;cursor: pointer;font-size:16px;" aria-hidden="true"
+            data-toggle="tooltip" title="Eliminar Registro" (click)="deleteCatalogoLote(data)"></i>&nbsp;&nbsp;             -->
+
+
+        </ng-template>
+      </p-column>
+
+    </p-dataTable>
+
+    <br><br>
+    <!-- relacion de lotes por presentacion -->
+    
+    <p-dataTable emptyMessage="No hay lotes para esta presentacion ..." [value]="this.catalogoLotesModel" [responsive]="true"
+      [editable]="true" (onRowClick)="onRowClickLotePorPresentacion($event)" [(selection)]="selectionLote"> 
+      <p-header style="color:brown">LOTES POR PRESENTACION</p-header>
+
+
+      <p-column field="catalogoMarca.productoPresentacion.dscPresentacion" header="Descripcion" [style]="{'width':'150px'}"> </p-column>
+      <p-column field="numeroLote" header="Nro Lote" [style]="{'width':'120px'}" [editable]="true"> </p-column>
+
+
+      <p-column header="Fecha Vencimiento">
+        <ng-template let-data="rowData" pTemplate type="body">
+
+              <p-calendar [(ngModel)]="data.fechaVencimiento" [showIcon]="true" [locale]="es" dateFormat="dd/mm/yy"></p-calendar>
+
+          
+        </ng-template>
+      </p-column>
+
+      <p-column field="numeroRegistro" header="Nro Registro Sanitario" [style]="{'width':'150px'}" [editable]="true"> </p-column>
+      <p-column field="cantidad" header="Cantidad Unds" [style]="{'width':'100px'}" [editable]="true"> </p-column>
+
+      <p-column>
+        <ng-template let-data="rowData" pTemplate type="body">
+          <i style="cursor: pointer;" class="fa fa-save fa-2x" aria-hidden="true" data-toggle="tooltip" title="Grabar" (click)="grabarCatalogoLote(data)"></i>&nbsp;
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+
+    <br><br>
+    <!-- relacion de lotes item por lote pikin -->
+  
+    <p-dataTable emptyMessage="No hay lotes para esta presentacion ..." [value]="this.selectionLote.pikings" [responsive]="true" [loading]="loading" loadingIcon="fa-spinner"
+      [editable]="true" (onEditComplete)="onEditComplete($event)"
+      >
+      <p-headerColumnGroup>
+        <p-row>
+
+          <p-column header="ITEMS PARA DISTRIBUIR EL LOTE" colspan="7"></p-column>
+    
+
+        </p-row>
+        <p-row>
+
+          <p-column header="" colspan="4"></p-column>
+          <p-column header="Suma Calculado"></p-column>
+          <p-column header="Suma Piking"></p-column>
+          <p-column header=""></p-column>
+        </p-row>
+        <p-row>
+           
+          <p-column header="Item"></p-column>
+          <p-column header="Centro Poblado"></p-column>
+          <p-column header="Cod.Modular"></p-column>
+          <p-column header="IE"></p-column>
+          <p-column header={{sumaCalculado}}></p-column>
+          <p-column header={{sumaPiking}}></p-column>
+          <p-column header="" >
+             
+          </p-column>
+
+        </p-row>
+
+      </p-headerColumnGroup>
+      <!-- <p-header style="color:red; font-weight: bold;">ITEMS PARA DISTRIBUIR EL LOTE</p-header> -->
+
+      <p-column field="requerimientoVolumen001.entregaPorItem.itemEntrega.dscitem" header="Item" [style]="{'width':'150px'}"> </p-column>
+      <p-column field="requerimientoVolumen001.centroPoblado" header="Centro Poblado" [style]="{'width':'120px'}" > </p-column>
+
+     
+
+      <p-column field="requerimientoVolumen001.codigomodularIinstitucionEducativa.codigoModular" header="Codigo Modular" [style]="{'width':'90px'}" > </p-column>
+      <p-column field="requerimientoVolumen001.codigomodularIinstitucionEducativa.nombreInstitucionEducativa" header="IE" [style]="{'width':'250px'}" > </p-column>
+      <p-column field="volumenConvertidoEnvace.cantidad" header="Cant.Calculada" [style]="{'width':'100px'}" > </p-column>
+      <p-column field="cantidad" header="Cant.Pikink" [style]="{'width':'100px'}" [editable]="true"> </p-column>
+      <p-column>
+      
+        <ng-template let-data="rowData" pTemplate type="body">
+          <i style="cursor: pointer;" class="fa fa-search fa-2x" aria-hidden="true" data-toggle="tooltip" title="Ver Id Piking" (click)="verIdPiking(data)"></i>&nbsp;
+          <i style="cursor: pointer;" class="fa fa-trash fa-2x" aria-hidden="true" data-toggle="tooltip" title="Quitar Codigo Modular" (click)="deleteIdPiking(data)"></i>&nbsp;
+        </ng-template>
+      </p-column>
+
+      <p-footer>
+        <div class="row">
+            <div class="ui-helper-clearfix col-2" style="width:100%"><button type="button" pButton icon="fa-plus" style="float:left" (click)="addItem()" label="Agregar Item"></button></div>
+            <div class="ui-helper-reset col-2" style="width:100%"><button type="button" pButton icon="fa fa-refresh" style="float:left" (click)="actualizaCantidadPiking()" label="Actualiza Cant. Pikink"></button></div>
+        </div>
+       
+      </p-footer>
+    </p-dataTable>
+   
+
+
+   <div>
+      <app-requerimiento-volumen-001-list [isBuscador]="true" [showPanelBuscarFlag]="true" [isMultiSelect]="true" [selectionModeDataTable]="none" 
+      [showCheck]="true" [showPeriodoEntrega]="false" [item]="this.item" 
+      (eventHandleRowSelect)="this.onSelectionCodigoModular($event)"
+      (eventHandleRowUnSelect)="this.onUnselectionCodigoModular($event)" 
+      (eventHeaderCheckboxToggle)="this.eventHeaderCheckboxToggle($event)"
+      (eventHandleAfterPagination)="this.evenHandleAfterPagination($event)"
+      >
+
+      </app-requerimiento-volumen-001-list>
+   </div>
+
+  </div>

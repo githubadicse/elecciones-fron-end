@@ -1,0 +1,27 @@
+<div class="container">
+
+  <form action="">
+    <div class="row">
+      <label class="col-3" for="">Login</label>
+
+      <input class="form-control inputfield col-7" type="text" [(ngModel)]="username" [ngModelOptions]="{standalone: true}">
+    </div>
+
+    <div class="row">
+      <label for="" class="col-3">contraseña</label>
+      <input class="form-control inputfield col-7" type="text" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+    </div>
+
+    <div>
+      MAC PC : {{this.mac}}
+    </div>
+
+    <div class="row" style="padding-bottom:10px;">
+      <button type="button" class="btn btn-primary" (click)="validar()" >Validar</button>
+    </div>
+
+    <div class="row">
+      <div ></div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,81 @@
+<p>
+  Opciones
+</p>
+
+
+<div class="container-fluit">
+  <div class="row">
+    <label class="control-label col-3">Almacen </label>
+    <div class="col-9">
+
+      <select class="form-control inputselect" [(ngModel)]="this.almacenModel" (change)="onChangeAlmacen($event)">
+        <option *ngFor="let almacen of almacensModel" 
+        [selected]="almacen.idalmacen == this.idalmacen "
+          [ngValue]="almacen">{{almacen.dscalmacen}}</option>
+      </select>
+
+
+    </div>
+  </div>
+
+  <div class="row">
+    <label class="control-label col-3">Periodo </label>
+    <div class="col-9">
+
+      <select class="form-control inputselect" [(ngModel)]="this.periodoalmacenModel">
+        <option *ngFor="let periodoalmacen of periodoalmacensModel" 
+        [selected]="periodoalmacen.idperiodoalmacen == (this.idperiodoalmacen==null?'':this.idperiodoalmacen)"
+          [ngValue]="periodoalmacen">{{periodoalmacen.mes}} - {{periodoalmacen.anno}}</option>
+      </select>
+
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <label class="control-label col-3">Producto </label>
+    <div class="col-md-9">
+
+      <div class="col-12" style="margin:0; padding:0;">
+        <p-autoComplete [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" inputStyleClass="inputfield" minLength=3 field="dscproducto"
+          [suggestions]="productosModel" (completeMethod)="searchProducto($event)" [delay]="700" placeholder="Digite el producto a buscar"
+          [(ngModel)]="productoModel">
+
+        </p-autoComplete>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <label class="control-label col-md-3">Codigo barra</label>
+    <div class="col-md-4">
+      <input #codigobarra type="text" class="form-control inputfield" (keyup)="searchCodigoBarra($event)" placeholder="Codigo de barra">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <p-messages [(value)]="msgs"></p-messages>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row form-group" style="margin-left:5px;">
+
+    <div class="col-md-5 col-sm-7">
+      <button type="button" class="btn btn-success" style="cursor:pointer;" (click)="getpdfkardex()">Ver kardex fisico</button>
+      <button type="button" class="btn btn-primary" style="cursor:pointer;" (click)="getListaIngresos()">Lista de Ingresos</button>
+      <button type="button" class="btn btn-primary" style="cursor:pointer;" (click)="getListaSalidas()">Lista de Salidas</button>
+    </div>
+
+    <div class="col-md-5 col-sm-7">
+      <button type="button" class="btn btn-primary" style="cursor:pointer;" [routerLink]="['../']">Regresar</button>
+    </div>
+  </div>
+
+</div>
+
+<router-outlet ></router-outlet>

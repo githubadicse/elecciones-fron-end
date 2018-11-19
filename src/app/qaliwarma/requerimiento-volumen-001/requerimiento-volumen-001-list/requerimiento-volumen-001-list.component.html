@@ -1,0 +1,147 @@
+<div [hidden]="!this.show">
+  <h3 *ngIf="!isBuscador">
+    {{titulo}}
+  </h3>
+  <h3 *ngIf="isBuscador">
+    <button type="button" (click)="eventBackFill()" class="btn btn-success">
+      Atras</button>
+    <br> Buscador Centros Educativos
+  </h3>
+
+  <div style="height: 70%;">
+    <div *ngIf="!isBuscador">
+      <button type="button" class="btn btn-danger btn-circle" [routerLink]="['./edicion', {id:0}]" (click)="ocultarLista()">
+        <i class="fa fa-plus"></i>
+      </button>
+      <button type="button" class="btn btn-info btn-circle" [routerLink]="['./print', {id:0}]">
+        <i class="fa fa-print"></i>
+      </button>
+      <button type="button" class="btn btn-success btn-circle" (click)="showPanelBuscar()">
+        <i class="fa fa-search"></i>
+      </button>
+    </div>
+    <br>
+    <br>
+
+
+    <div *ngIf="showPeriodoEntrega">
+      <div class="row">
+        <label class="col-md-2">Periodo</label>
+        <input type="number" class="col-md-3 form-control inputfield" [(ngModel)]="this.anno" (change)="sendConsulta()">
+      </div>
+
+      <div class="row">
+        <label class="col-md-2">Nro Entrega</label>
+        <input type="number" class="col-md-3 form-control inputfield" [(ngModel)]="this.numeroEntrega" (change)="sendConsulta()">
+
+      </div>
+    </div>
+
+    <!-- tabla de datos -->
+
+    <div class="row">
+      <label class="col-md-2">Buscador de Codigos Modulares</label>
+      <input type="text" class="col-md-6 form-control inputfield" [(ngModel)]="this.filtroCodigoModular">
+      <div class="col-md-2">
+        <i style="cursor: pointer;" class="fa fa-search fa-2x" aria-hidden="true" data-toggle="tooltip" title="Filtrar" (click)="sendConsulta()"></i>&nbsp;
+      </div>
+    </div>
+ 
+
+    <p-table #dt [value]="requerimientoVolumen001sModel" selectionMode="single" [loading]="Cargando" [responsive]="true" selectionMode={{this.selectionModeDataTable}} [(selection)]="requerimientoVolumen001SeleccionadosModel"
+    (onRowSelect)="handleRowSelect($event)" (onRowUnselect)="handleRowUnSelect($event)" (onHeaderCheckboxToggle)="onHeaderCheckboxToggle($event)"
+    >
+      <ng-template pTemplate="header">
+
+        <tr>
+          <th style="width: 2.25em">
+            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+          </th>
+          <th style="width: 10%">Provincia</th>
+          <th style="width: 10%">Distrito</th>
+          <th style="width: 10%">C.Poblado</th>
+          <th style="width: 10%">Item</th>
+          <th style="width: 3%">Nro Entrega</th>
+          <th style="width: 7%">Cod.Modular</th>
+          <th style="width: 10%">IE</th>
+          <th style="width: 20%">Direccion IE</th>
+          <th style="width: 10%">Accion</th>
+        </tr>
+        <tr>
+          <th>
+
+          </th>
+
+          <th>
+            <input style="width: 100%" (click)="$event.stopPropagation()" (keyup)="Typeahead.next([$event.target.value,'ubigeo.nombreProvincia','equals'])"
+              pInputText type="text">
+          </th>
+          <th>
+            <input style="width: 100%" (click)="$event.stopPropagation()" (keyup)="Typeahead.next([$event.target.value,'ubigeo.nombreDistrito','contains'])"
+              pInputText type="text">
+          </th>
+          <th>
+            <input style="width: 100%" (click)="$event.stopPropagation()" (keyup)="Typeahead.next([$event.target.value,'centroPoblado','contains'])"
+              pInputText type="text"> </th>
+          <th>
+            <input style="width: 100%" (click)="$event.stopPropagation()" (keyup)="Typeahead.next([$event.target.value,'entregaPorItem.itemEntrega.dscitem','contains'])"
+              pInputText type="text">
+          </th>
+          <th>
+            <input style="width: 100%" (click)="$event.stopPropagation()" (keyup)="Typeahead.next([$event.target.value,'entregaPorItem.numeroEntrega.numeroEntregaValor','contains'])"
+              pInputText type="text">
+          </th>
+          <th>
+            <input style="width: 100%" (click)="$event.stopPropagation()" (keyup)="Typeahead.next([$event.target.value,'codigomodularIinstitucionEducativa.codigoModular','contains'])"
+              pInputText type="text">
+          </th>
+          <th>
+            <input style="width: 100%" (click)="$event.stopPropagation()" (keyup)="Typeahead.next([$event.target.value,'codigomodularIinstitucionEducativa.nombreInstitucionEducativa','contains'])"
+              pInputText type="text">
+          </th>
+          <th colspan="2">
+            <input style="width: 100%" (click)="$event.stopPropagation()" (keyup)="Typeahead.next([$event.target.value,'codigomodularIinstitucionEducativa.direccionInstitucionEducativa','contains'])"
+              pInputText type="text">
+          </th>
+        </tr>
+
+      </ng-template>
+      <ng-template pTemplate="body" let-reqvol>
+        <tr [pSelectableRow]="reqvol">
+          <td>
+            <p-tableCheckbox [value]="reqvol"></p-tableCheckbox>
+          </td>
+          <td>{{reqvol.ubigeo.nombreProvincia}}</td>
+          <td>{{reqvol.ubigeo.nombreDistrito}}</td>
+          <td>{{reqvol.centroPoblado}}</td>
+          <td>{{reqvol.entregaPorItem.itemEntrega.dscitem}}</td>
+          <td>{{reqvol.entregaPorItem.numeroEntrega.numeroEntregaValor}}</td>
+          <td>{{reqvol.codigomodularIinstitucionEducativa.codigoModular}}</td>
+          <td>{{reqvol.codigomodularIinstitucionEducativa.nombreInstitucionEducativa}}</td>
+          <td>{{reqvol.codigomodularIinstitucionEducativa.direccionInstitucionEducativa}}</td>
+
+          <td>
+            <i *ngIf="!isBuscador" [routerLink]="['./edicion', {id:reqvol.idRequerimientoVolumen001}]" (click)="ocultarLista()" style="cursor: pointer;"
+              class="fa fa-pencil fa-1x" aria-hidden="true" data-toggle="tooltip" title="Editar"></i>&nbsp;
+            <i *ngIf="!isBuscador" style="cursor: pointer;" class="fa fa-trash-o fa-1x" aria-hidden="true" data-toggle="tooltip" title="Eliminar"
+              (click)="delete(reqvol)"></i>
+            &nbsp;&nbsp;
+            <button *ngIf="isBuscador" type="button" class="btn btn-primary btn-sm" (click)="eventBackFill(reqvol)">Seleccionar</button>
+          </td>
+
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+
+  <ad-pagination [rowsForPageCbo]="[10,20,30,40,100,300,500]" [model]="this.requerimientoVolumen001sModel" [filterPage]=[this.filterPage]
+    [controller]="'requerimientoVolumen001'" [orden]="'idRequerimientoVolumen001'" [_refreshPage]="this.refreshPage" (onPageChange)="this.refreshModel($event)"></ad-pagination>
+
+
+</div>
+
+
+<div class="container-fluit">
+  <router-outlet (activate)='onActivate($event)' (deactivate)='onDeactivate($event)'></router-outlet>
+</div>
