@@ -12,7 +12,7 @@
 
 <p>
     <mat-form-field>
-    <mat-select placeholder="Provincia" (selectionChange)="_SelectionChangeProvincia($event)">
+      <mat-select placeholder="Provincia" (selectionChange)="_SelectionChangeProvincia($event)" [disabled]="nivel < 2">
       <mat-option *ngFor="let provincia of provinciasModel" [value]="provincia">
         {{provincia.dscprovincia}}
       </mat-option>
@@ -22,7 +22,7 @@
 
 <p>
   <mat-form-field>
-    <mat-select placeholder="Distrito" (selectionChange)="_SelectionChangeDistrito($event)">
+    <mat-select placeholder="Distrito" (selectionChange)="_SelectionChangeDistrito($event)" [disabled]="nivel < 3">
       <mat-option *ngFor="let distrito of distritosModel" [value]="distrito">
         {{distrito.dscdistrito}}
       </mat-option>
@@ -34,7 +34,7 @@
 
 <p>
   <mat-form-field>
-    <mat-select placeholder="Centro De Votacion" (selectionChange)="_SelectionChangeCentroDeVotacion($event)">
+<mat-select placeholder="Centro De Votacion" (selectionChange)="_SelectionChangeCentroDeVotacion($event)" [disabled]="nivel < 4">
       <mat-option *ngFor="let centroDeVotacion of centroDeVotacionsModel" [value]="centroDeVotacion">
         {{centroDeVotacion.nombreCentroDeVotacion}}
       </mat-option>
@@ -45,7 +45,7 @@
 
 <p>
   <mat-form-field>
-    <mat-select placeholder="Nro de Mesa"  >
+    <mat-select placeholder="Nro de Mesa"  [disabled]="nivel < 5">
       <mat-option *ngFor="let mesaDeVotacion of mesaDeVotacionsModel" [value]="mesaDeVotacion">
         {{mesaDeVotacion.numeroDeMesa}}
       </mat-option>
