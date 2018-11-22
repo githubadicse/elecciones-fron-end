@@ -56,6 +56,7 @@ import { CrudHttpClientServiceShared } from './shared/servicio/crudHttpClient.se
 import { UserIdleModule } from 'angular-user-idle';
 
 
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -80,6 +81,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AccordionAnchorDirective,
     AccordionLinkDirective,
     AccordionDirective
+
    
   ],
   imports: [

@@ -14,7 +14,7 @@ export class CrudHttpClientServiceShared {
   getall(controller:string,evento:string,urlBasic?:boolean):Observable<any[]>{
     let url = urlBasic ? this.configService.getUrlBasic(controller, evento) : this.configService.getUrlSecurityRes(controller, evento);
     //let url = this.configService.getUrlSecurityRes(controller, evento);
-    //let header = this.configService.getHeaderHttpClientGet();
+    let header = this.configService.getHeaderHttpClientGet();
        
     return this.httpClient.get<any[]>(url);
   }

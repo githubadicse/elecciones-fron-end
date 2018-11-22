@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.menuAppService.getPerfilDetalle();
+    //this.menuAppService.getPerfilDetalle();
   }
 
 }

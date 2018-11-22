@@ -16,6 +16,11 @@ export const AppRoutes: Routes = [
       data : {'tituloModulo':'Inicio'}
       },
 
+      //PROCESOS
+      {
+        path : 'procesos/registrar-votos',
+        loadChildren : './modulo-negocio/registro-voto/registro-voto.module#RegistroVotoModule'
+      },
       //CONFIGURACION
       {
         path : 'configuracion/menu',
@@ -34,12 +39,8 @@ export const AppRoutes: Routes = [
         path: 'configuracion/tipodocumento',
         loadChildren: './modulo-sistema-config/tipodocumento/tipodocumento.module#TipodocumentoModule'        
 
-      },      
-      //DOCUMENTACION
-      {
-        path: 'documentacion',
-        loadChildren: './documentacion/documentacion.module#DocumentacionModule'
       }
+
     ]
   }, 
  

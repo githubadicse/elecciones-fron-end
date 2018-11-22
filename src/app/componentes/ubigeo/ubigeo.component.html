@@ -1,0 +1,60 @@
+<mat-card>
+
+<p>
+  <mat-form-field>
+    <mat-select placeholder="Departamento" (selectionChange)="_SelectionChangeDepartamento($event)">
+      <mat-option *ngFor="let departamento of departamentosModel" [value]="departamento">
+        {{departamento.dscdepartamento}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</p>
+
+<p>
+    <mat-form-field>
+    <mat-select placeholder="Provincia" (selectionChange)="_SelectionChangeProvincia($event)">
+      <mat-option *ngFor="let provincia of provinciasModel" [value]="provincia">
+        {{provincia.dscprovincia}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</p>
+
+<p>
+  <mat-form-field>
+    <mat-select placeholder="Distrito" (selectionChange)="_SelectionChangeDistrito($event)">
+      <mat-option *ngFor="let distrito of distritosModel" [value]="distrito">
+        {{distrito.dscdistrito}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</p>
+
+
+<p>
+  <mat-form-field>
+    <mat-select placeholder="Centro De Votacion" (selectionChange)="_SelectionChangeCentroDeVotacion($event)">
+      <mat-option *ngFor="let centroDeVotacion of centroDeVotacionsModel" [value]="centroDeVotacion">
+        {{centroDeVotacion.nombreCentroDeVotacion}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</p>
+
+<p>
+  <mat-form-field>
+    <mat-select placeholder="Nro de Mesa"  >
+      <mat-option *ngFor="let mesaDeVotacion of mesaDeVotacionsModel" [value]="mesaDeVotacion">
+        {{mesaDeVotacion.numeroDeMesa}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</p>
+
+
+
+
+</mat-card>

@@ -11,9 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { FechaMatComponent } from './fecha-mat/fecha-mat.component';
 import { MatInputModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS, DateAdapter } from '@angular/material';
 import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
 import { MOMENT_DATE_FORMATS, MomentDateAdapter } from '../shared/validators/MomentDateAdapter';
 
 import { PaginatorModule } from 'primeng/paginator';
+import { UbigeoComponent } from './ubigeo/ubigeo.component';
+import { ProvinciaModule } from '../modulo-negocio/provincia/provincia.module';
 
 
 
@@ -33,7 +36,9 @@ import { PaginatorModule } from 'primeng/paginator';
     MatIconModule,
     PaginatorModule,
     MatPaginatorModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatCardModule,
+    ProvinciaModule
   ],
   providers : [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
@@ -42,12 +47,14 @@ import { PaginatorModule } from 'primeng/paginator';
   ],
 
   declarations: [
-    FechaMatComponent
+    FechaMatComponent,
+    UbigeoComponent
 
   ],
   exports: [
     MatDatepickerModule,
-    FechaMatComponent
+    FechaMatComponent,
+    UbigeoComponent
 
   ]
 })
