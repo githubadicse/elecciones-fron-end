@@ -45,7 +45,7 @@
 
 <p>
   <mat-form-field>
-    <mat-select placeholder="Nro de Mesa"  [disabled]="nivel < 5">
+    <mat-select placeholder="Nro de Mesa" (selectionChange)="_SelectionChangeMesa($event)" [disabled]="nivel < 5">
       <mat-option *ngFor="let mesaDeVotacion of mesaDeVotacionsModel" [value]="mesaDeVotacion">
         {{mesaDeVotacion.numeroDeMesa}}
       </mat-option>

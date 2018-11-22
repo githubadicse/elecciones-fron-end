@@ -27,8 +27,6 @@ export class UbigeoComponent implements OnInit {
   @Output('getMesas')
   getMesas: EventEmitter<MesaDeVotacionModel[]> = new EventEmitter();
 
-
-
   UbigeoRpt: any = {};
 
   constructor(private crudHttpClientServiceShared: CrudHttpClientServiceShared,
@@ -130,6 +128,11 @@ export class UbigeoComponent implements OnInit {
         }
       );
 
+  }
+
+  _SelectionChangeMesa(e) {
+    const idMesaDeVotacion = e.value.idMesaDeVotacion;
+    this.emitRpt('idMesaDeVotacion', idMesaDeVotacion);
   }
 
   btnClick() {
