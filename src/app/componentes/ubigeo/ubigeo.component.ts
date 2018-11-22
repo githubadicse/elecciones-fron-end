@@ -18,8 +18,8 @@ import { MesaDeVotacionService } from 'src/app/modulo-negocio/mesa-de-votacion/m
 })
 export class UbigeoComponent implements OnInit {
 
-  @Input()
-  nivel: number;
+  @Input('nivel')
+  nivel = 5;
 
   @Output('getUbigeo')
   getUbigeo: EventEmitter<any> = new EventEmitter();
