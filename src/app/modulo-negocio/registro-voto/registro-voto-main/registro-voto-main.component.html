@@ -1,4 +1,48 @@
 <p>
   registro-voto-main works!
 </p>
-<app-ubigeo></app-ubigeo>
+<div class="row">
+  <div class="col-md-4">
+<app-ubigeo (getUbigeo)="validaUbigeoMesa($event)"></app-ubigeo>
+  </div>
+  <div class="col-md-8">
+    <mat-card class="h-100">      
+      <h2>Mesa: {{numMesa}}</h2>
+      <hr>
+      <div *ngIf="plantilla001" class="animated fadeIn">
+      <table class="w-100">
+        <tr *ngFor="let item of plantilla001?.plantilla002s" (click)="txtCantVotos.select();">
+          <td width="80px">
+            <img src="../../../../assets/images/{{item.candidato.foto | lowercase}}.jpg" alt="" width="90px">
+          </td>
+          <td>
+            <p class="titulo">{{item.candidato.nombre}}</p>
+            <span class="subtitulo">{{item.candidato.agrupacion.dscagrupacion}}</span>
+          </td>
+          <td>
+            <div class="cantvotos text-center">
+              <h2>              
+                <input type="text" 
+                  [disabled]="!numMesaValida"
+                  class="cantvotos_input"
+                  value={{getVotos(item)}}
+                  (click)="txtCantVotos.select();"
+                  (change) = "setVotos(item, txtCantVotos.value)"
+                  #txtCantVotos>
+              </h2>
+            </div>
+          </td>
+        </tr>
+        <tr class="trtotal">
+          <td colspan="2" class="text-left">
+            <button class="btn btn-success" [disabled]="!numMesaValida" (click)="grabarActa()"> Grabar Acta </button>
+          </td>
+          <td class="text-center"><h2>{{totalVotos}}</h2></td>
+        </tr>
+      </table>
+    </div>
+    </mat-card>
+  </div>
+</div>
+
+
