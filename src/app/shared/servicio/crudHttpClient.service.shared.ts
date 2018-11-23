@@ -20,18 +20,19 @@ export class CrudHttpClientServiceShared {
   }
 
   //este evento retorna un solo elemento, para modificar o mostrar.
-  edit(id: any, controller: string, evento: string):Observable<any>{
-    //let url = urlBasic ? this.configService.getUrlBasic(controller, evento) : this.configService.getUrlSecurityRes(controller, evento);    
-    let url = this.configService.getUrlSecurityRes(controller,evento);
+  edit(id: any, controller: string, evento: string, urlBasic=false):Observable<any>{
+    let url = urlBasic ? this.configService.getUrlBasic(controller, evento) : this.configService.getUrlSecurityRes(controller, evento);        
+    // let url = this.configService.getUrlSecurityRes(controller,evento);
     let header = this.configService.getHeaderHttpClientGet();
     let parametros = new HttpParams().set("id",id.toString());
 
-    return this.httpClient.get<any>(url,{params:parametros,headers:header});
+    return this.httpClient.get<any>(url,{params:parametros, headers:header});
   
   }
 
-  create(model:any,controller:string,evento:string):Observable<any>{
-    let url = this.configService.getUrlSecurityRes(controller,evento);
+  create(model: any, controller: string, evento: string, urlBasic = false):Observable<any>{
+    // let url = this.configService.getUrlSecurityRes(controller,evento);
+    let url = urlBasic ? this.configService.getUrlBasic(controller, evento) : this.configService.getUrlSecurityRes(controller, evento);        
     let header = this.configService.getHeaderHttpClientGet();
 
     localStorage.setItem('pintar', controller); // para actualizar las listas despues de modificar o guardar

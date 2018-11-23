@@ -64,6 +64,7 @@ export class UbigeoComponent implements OnInit {
     this.getProvinciaByIdDepartamento(idDepartamento);
 
     this.emitRpt('idDepartamento', idDepartamento);
+    this.emitRpt('idMesaDeVotacion', null);
   }
 
   getProvinciaByIdDepartamento(idDepartamento: string) {
@@ -81,6 +82,9 @@ export class UbigeoComponent implements OnInit {
     this.getDistritoByIdProvincia(idProvincia);
 
     this.emitRpt('idProvincia', idProvincia);
+    this.emitRpt('idDistrito', null);
+    this.emitRpt('idCentroDeVotacion', null);
+    this.emitRpt('idMesaDeVotacion', null);
   }
 
   getDistritoByIdProvincia(idProvincia: string) {
@@ -99,6 +103,8 @@ export class UbigeoComponent implements OnInit {
     this.getCentroDeVotacionByDistrito (idDistrito);
 
     this.emitRpt('idDistrito', idDistrito);
+    this.emitRpt('idCentroDeVotacion', null);
+    this.emitRpt('idMesaDeVotacion', null);
   }
 
   getCentroDeVotacionByDistrito(idDistrito: string) {
@@ -116,6 +122,7 @@ export class UbigeoComponent implements OnInit {
     this.getMesaDeVotacionByIdCentroDeVotacion(idCentroDeVotacion);
 
     this.emitRpt('idCentroDeVotacion', idCentroDeVotacion);
+    this.emitRpt('idMesaDeVotacion', null);
   }
 
   getMesaDeVotacionByIdCentroDeVotacion(idCentroDeVotacion: string) {
@@ -132,7 +139,8 @@ export class UbigeoComponent implements OnInit {
 
   _SelectionChangeMesa(e) {
     const idMesaDeVotacion = e.value.idMesaDeVotacion;
-    this.emitRpt('idMesaDeVotacion', idMesaDeVotacion);
+    this.UbigeoRpt['idMesaDeVotacion'] = idMesaDeVotacion;
+    this.emitRpt('MesaDeVotacion', e.value); // modelo
   }
 
   btnClick() {
