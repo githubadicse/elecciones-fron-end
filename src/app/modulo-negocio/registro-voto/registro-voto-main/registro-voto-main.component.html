@@ -1,5 +1,6 @@
+<div class="animated fadeIn">
 <p>
-  registro-voto-main works!
+  Registro de votos
 </p>
 <div class="row">
   <div class="col-md-4">
@@ -7,9 +8,9 @@
   </div>
   <div class="col-md-8">
     <mat-card class="h-100">      
-      <h2>Mesa: {{numMesa}}</h2>
+      <h2>Mesa: {{numMesa}} <i  class="fa fa-circle-o-notch fa-spin fa-fw text-info" [hidden]="!loadingMesa"></i></h2>
       <hr>
-      <div *ngIf="plantilla001" class="animated fadeIn">
+      <div [ngClass]="{'animated fadeIn': !loadingPlantilla}">
       <table class="w-100">
         <tr *ngFor="let item of plantilla001?.plantilla002s" (click)="txtCantVotos.select();">
           <td width="80px">
@@ -44,5 +45,5 @@
     </mat-card>
   </div>
 </div>
-
+</div>
 

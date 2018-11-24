@@ -24,6 +24,8 @@ export class RegistroVotoMainComponent implements OnInit {
   numMesa: number;
   numMesaValida = false;
   totalVotos = 0;
+  loadingPlantilla = false;
+  loadingMesa = false;
 
   constructor(
     private crudHttpClientServiceShared: CrudHttpClientServiceShared,
@@ -35,13 +37,12 @@ export class RegistroVotoMainComponent implements OnInit {
   }
 
   loadPlantilla() {
+    this.loadingPlantilla = true;
     this.crudHttpClientServiceShared.edit('1', 'plantilla001', 'edit', true).
       subscribe((res: any) => {
-        console.log(res);
-
+        this.loadingPlantilla = false;
         this.plantilla001 = <Plantilla001Model>res;
-        // this.plantilla001.plantilla002s.map(x => x['voto'] = '');
-        this.Plantilla001Nueva = <Plantilla001Model>res;
+        this.Plantilla001Nueva = <Plantilla001Model>res; // se mantiene en blanco, para no llamar nuevamente esta funcion
       });
   }
 
@@ -51,10 +52,9 @@ export class RegistroVotoMainComponent implements OnInit {
     // busca si ya existe en lista
     this.voto001.voto002s.filter(x => x.plantilla002.idplantilla002 === item.idplantilla002).map(x => _voto = x);
 
-    if (_voto) {
+    if (_voto) { // si el voto ya esta registrado, actualiza
       _voto.voto = parseFloat(cantidad);
-      // this.voto001.voto002s[1].voto = cantidad;
-    } else {
+    } else { // crea un nuevo voto Voto002
       _voto = new Voto002Model();
       _voto.idvoto002 = this.utilitariosAdicse.randomString();
       _voto.plantilla002 = item;
@@ -64,16 +64,15 @@ export class RegistroVotoMainComponent implements OnInit {
     }
 
     this.totalVotos = this.getTotalVotos() || 0;
-
-    console.log('plantilla001 ', this.plantilla001);
-    console.log('voto001 ', this.voto001);
   }
 
+  // obtiene el numero de votos por candidato para mostrar en la plantilla
   getVotos(item: Plantilla002Model): any {
     if ( this.voto001 === undefined ) {return ''; }
     return this.voto001.voto002s.filter(x => x.plantilla002.idplantilla002 === item.idplantilla002).map(x => x.voto) || '';
   }
 
+  // total de votos
   getTotalVotos(): number {
     return this.voto001.voto002s.map(t => t.voto).reduce((acc, value) => (acc || 0) + (value || 0), 0);
   }
@@ -87,6 +86,8 @@ export class RegistroVotoMainComponent implements OnInit {
 
   loadVotos(): void {
     if (!this.numMesaValida) { return; }
+    this.loadingMesa = true;
+
     this.crudHttpClientServiceShared.edit(this.numMesa, 'voto001', 'filterByNumMesa', true)
       .subscribe(res => {
 
@@ -94,12 +95,13 @@ export class RegistroVotoMainComponent implements OnInit {
           this.voto001 = new Voto001Model();
           this.voto001.mesaDeVotacion = this.ubigeoMesa.MesaDeVotacion;
 
-          this.plantilla001 = null;
-          setTimeout(() => {
-            // this.Plantilla001Nueva.plantilla002s.map(x => x['voto'] = '');
+          // this.plantilla001 = null;
+          this.loadingPlantilla = true;
+          setTimeout(() => { // time para hacer el efecto nuevo y asignar plantilla en blanco
             this.plantilla001 = this.Plantilla001Nueva;
             this.totalVotos = 0;
             this.voto001.plantilla001 = this.plantilla001;
+            this.loadingPlantilla = false;
           }, 50);
 
         } else {
@@ -107,24 +109,36 @@ export class RegistroVotoMainComponent implements OnInit {
           this.totalVotos = this.getTotalVotos() || 0;
         }
 
+        this.loadingMesa = false;
 
-        console.log(this.voto001);
+
       });
   }
 
   grabarActa(): void {
+    const data = JSON.stringify(this.voto001);
 
-    const evento = this.voto001.idvoto001 === null ? 'create' : 'update';
-    const data = this.voto001;
-    console.log(data);
+    if (this.voto001.idvoto001 !== 0 ) { this.updateActa(data); return; }
 
     swal(MSJ_LOADING);
-    this.crudHttpClientServiceShared.create(data, 'voto001', evento, true)
+    this.crudHttpClientServiceShared.create(data, 'voto001', 'create', true)
     . subscribe (res => {
       console.log(res);
+      this.voto001 = res;
       swal(MSJ_SUCCESS);
       });
 
   }
 
+  updateActa(data: any): void {
+
+    swal(MSJ_LOADING);
+    this.crudHttpClientServiceShared.update(data, 'voto001', 'update', true)
+      .subscribe(res => {
+        console.log(res);
+        swal(MSJ_SUCCESS);
+      });
+
+  }
 }
+
