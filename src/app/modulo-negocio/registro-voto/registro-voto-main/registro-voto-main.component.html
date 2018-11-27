@@ -4,11 +4,18 @@
 </p>
 <div class="row">
   <div class="col-md-4">
-<app-ubigeo (getUbigeo)="validaUbigeoMesa($event)"></app-ubigeo>
+<app-ubigeo (getUbigeo)="validaUbigeoMesa($event)" ></app-ubigeo>
+<mat-card class="w-100" [ngClass]="{'bg-success text-white': getPocentajeRegistrados() > 99}">
+    <div class="text-center">
+      <h2>{{ getPocentajeRegistrados() }}%</h2>
+      <span>Total de votantes por mesa: {{NumVotantesPorMesa}}</span><br>
+      <span>Total votos registrados: {{getTotalVotos()}}</span>    
+    </div>
+  </mat-card>
   </div>
   <div class="col-md-8">
     <mat-card class="h-100">      
-      <h2>Mesa: {{numMesa}} <i  class="fa fa-circle-o-notch fa-spin fa-fw text-info" [hidden]="!loadingMesa"></i></h2>
+          <h2>Mesa: {{numMesa}} <i  class="fa fa-circle-o-notch fa-spin fa-fw text-info" [hidden]="!loadingMesa"></i></h2>              
       <hr>
       <div [ngClass]="{'animated fadeIn': !loadingPlantilla}">
       <table class="w-100">

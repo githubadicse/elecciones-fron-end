@@ -20,7 +20,7 @@ export const MSJ_SUCCESS_TOP_END: any = {
 
 export const MSJ_ALERT_BORRAR: any = {
     title: 'Esta seguro?',
-    text: "Borrar registro seleccionado",
+    text: 'Borrar registro seleccionado',
     type: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#d33',
