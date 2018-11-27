@@ -24,7 +24,7 @@ export class AsignacionMesaMainComponent implements OnInit {
   listMesas: any;
   checkAll = false;
   personero: any = false;
-  resumenAsignacion: any = [];
+  resumenAsignacion: any;
 
   totalVotante = 0;
 
