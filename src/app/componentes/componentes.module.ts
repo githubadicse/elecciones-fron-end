@@ -17,6 +17,7 @@ import { MOMENT_DATE_FORMATS, MomentDateAdapter } from '../shared/validators/Mom
 import { PaginatorModule } from 'primeng/paginator';
 import { UbigeoComponent } from './ubigeo/ubigeo.component';
 import { ProvinciaModule } from '../modulo-negocio/provincia/provincia.module';
+import { PersoneroListComponent } from './personero-list/personero-list.component';
 
 
 
@@ -25,7 +26,7 @@ import { ProvinciaModule } from '../modulo-negocio/provincia/provincia.module';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    
+
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
@@ -48,13 +49,15 @@ import { ProvinciaModule } from '../modulo-negocio/provincia/provincia.module';
 
   declarations: [
     FechaMatComponent,
-    UbigeoComponent
+    UbigeoComponent,
+    PersoneroListComponent
 
   ],
   exports: [
     MatDatepickerModule,
     FechaMatComponent,
-    UbigeoComponent
+    UbigeoComponent,
+    PersoneroListComponent
 
   ]
 })

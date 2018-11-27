@@ -1,0 +1,131 @@
+<div class="animated fadeIn">
+  <p>
+    Asignacion de mesas
+  </p>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="content-select-mesa">
+        <app-ubigeo nivel="4" (getMesas)="getUbigeoMesa($event)"></app-ubigeo>
+        <mat-card class="w-100">
+          <h4>Asignar a:</h4>        
+          <app-personero-list (getObject)="setPersonero($event)"></app-personero-list>      
+          <button 
+            class="btn btn-success  btn-sm w-100" 
+            [disabled]="!listMesasSeleccionadas.length > 0 || !personero"
+            (click)="asignarMesas()"> Asignar  mesas seleccionadas</button>
+        </mat-card>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <mat-card class="h-100 w-100">
+        <div class="mat-elevation-z8 example-container">
+          <table mat-table [dataSource]="listMesas" matSort class="w-100">
+            
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (click)="selectCheckAll()">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row; let i=index">
+                <mat-checkbox  
+                    (click)="$event.stopPropagation()" 
+                    (change)="selectCheck(row)"
+                    [checked]="row.checked || false">
+                </mat-checkbox>
+              </td>
+              <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container >
+              <!-- Position Column -->
+              <ng-container matColumnDef="#">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; let i=index;"> {{i+1}} </td>
+                <td colspan=3 mat-footer-cell *matFooterCellDef class="font-weight-bold">Total de votantes</td>
+              </ng-container>
+
+              <ng-container matColumnDef="numeroDeMesa">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Mesa </th>
+                <td mat-cell *matCellDef="let element"> {{element.numeroDeMesa}} </td>
+                <td mat-footer-cell *matFooterCellDef class="display-none" style="display: none"></td>
+              </ng-container>
+            
+              <!-- Weight Column -->
+              <ng-container matColumnDef="personero">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Personero </th>
+                <td mat-cell *matCellDef="let element"> {{element?.personero?.nombrepersonero}} </td>
+                <td mat-footer-cell *matFooterCellDef class="display-none" style="display: none"></td>
+              </ng-container>
+
+              <ng-container matColumnDef="numeroDeVotantes">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-right"> Votantes </th>
+                <td mat-cell *matCellDef="let element" class="text-right"> {{element.numeroDeVotantes}} </td>
+                <td mat-footer-cell *matFooterCellDef class="text-right font-weight-bold"> {{getTotalVotantes()}} </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>              
+              <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+
+            </ng-container>
+          </table>
+      </div>
+      <br>
+      <p>Resumen</p>
+      <div class="mat-elevation-z8">
+          <table mat-table [dataSource]="resumenAsignacion" matSort class="w-100">
+              <ng-container matColumnDef="personero">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Personero </th>
+                <td mat-cell *matCellDef="let element"> {{element.personero.nombrepersonero}} </td>                
+                <td mat-footer-cell *matFooterCellDef class="font-weight-bold"> Total asignados </td>                
+              </ng-container>
+
+              <!-- <ng-container matColumnDef="disclaimer">                
+                <td mat-footer-cell *matFooterCellDef class="font-weight-bold"> Por asignar </td>
+              </ng-container> -->
+
+              <ng-container matColumnDef="mesasAsignadas">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Mesas Asignadas </th>
+                <td mat-cell *matCellDef="let element" class="text-center"> {{element.mesasAsignadas}} </td>                
+                <td mat-footer-cell *matFooterCellDef class="text-center font-weight-bold"> {{getTotalResumenMesas()}} </td>                
+              </ng-container>
+
+              <!-- <ng-container matColumnDef="disclaimer">
+                <td mat-footer-cell *matFooterCellDef class="text-center font-weight-bold"> {{getResumenDIffMesas()}} </td>
+              </ng-container> -->
+
+              <ng-container matColumnDef="numeroVotantes">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="text-center"> Votantes </th>
+                <td mat-cell *matCellDef="let element" class="text-center"> {{element.numeroVotantes}} </td>
+                <td mat-footer-cell *matFooterCellDef class="text-center font-weight-bold"> {{getTotalResumenVotantes()}} </td>                
+              </ng-container>
+
+              <ng-container matColumnDef="total">
+                <td mat-footer-cell *matFooterCellDef class="font-weight-bold"> Por asignar </td>                
+              </ng-container>
+              
+              <ng-container matColumnDef="mesas">
+                <td mat-footer-cell *matFooterCellDef class="text-center font-weight-bold"> {{getResumenDIffMesas()}} </td>                
+              </ng-container>
+              
+              <ng-container matColumnDef="votantes">
+                <td mat-footer-cell *matFooterCellDef class="text-center font-weight-bold"> {{getResumenDiffVotantes()}} </td>                
+              </ng-container>
+
+                <ng-container matColumnDef="disclaimer">
+                  <td mat-footer-cell *matFooterCellDef colspan="3" class="bg-success text-white" [ngClass]="{'bg-warning text-dark': getPorcentajeMesasAsigndas() < 100}">
+                    {{ getPorcentajeMesasAsigndas() }}% de mesas asignadas.
+                  </td>
+                </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumnsAsignacion"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumnsAsignacion; "></tr>              
+              <tr mat-footer-row *matFooterRowDef="displayedColumnsAsignacion"></tr>
+              <tr mat-footer-row *matFooterRowDef="displayedFooterAsignacionPorAsignar"></tr>              
+              <tr mat-footer-row *matFooterRowDef="['disclaimer']"></tr>              
+          </table>
+        </div>
+      </mat-card>      
+    </div>    
+  </div>
+</div>

@@ -20,12 +20,14 @@ export class RegistroVotoMainComponent implements OnInit {
   voto002: Voto002Model[] = [];
   plantilla001: Plantilla001Model;
   Plantilla001Nueva: Plantilla001Model;
-  ubigeoMesa: any;
+  ubigeoMesa: any = null;
   numMesa: number;
   numMesaValida = false;
   totalVotos = 0;
   loadingPlantilla = false;
   loadingMesa = false;
+
+  NumVotantesPorMesa = 0;
 
   constructor(
     private crudHttpClientServiceShared: CrudHttpClientServiceShared,
@@ -74,6 +76,7 @@ export class RegistroVotoMainComponent implements OnInit {
 
   // total de votos
   getTotalVotos(): number {
+    if ( !this.voto001 ) {return 0; }
     return this.voto001.voto002s.map(t => t.voto).reduce((acc, value) => (acc || 0) + (value || 0), 0);
   }
 
@@ -87,6 +90,7 @@ export class RegistroVotoMainComponent implements OnInit {
   loadVotos(): void {
     if (!this.numMesaValida) { return; }
     this.loadingMesa = true;
+    this.NumVotantesPorMesa = this.ubigeoMesa.MesaDeVotacion.numeroDeVotantes;
 
     this.crudHttpClientServiceShared.edit(this.numMesa, 'voto001', 'filterByNumMesa', true)
       .subscribe(res => {
@@ -139,6 +143,16 @@ export class RegistroVotoMainComponent implements OnInit {
         swal(MSJ_SUCCESS);
       });
 
+  }
+
+  getPocentajeRegistrados() {
+    if (this.ubigeoMesa ===  undefined) { return 0; }
+    if (this.voto001 === undefined) { return 0; }
+
+    const totalVotos = this.getTotalVotos();
+    const porcentaje = (totalVotos / this.NumVotantesPorMesa) * 100;
+
+    return parseFloat(porcentaje.toString()).toFixed(2);
   }
 }
 

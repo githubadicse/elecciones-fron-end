@@ -32,18 +32,23 @@ export const AppRoutes: Routes = [
       },
       {
         path: 'configuracion/perfiles',
-        loadChildren: './modulo-sistema-config/perfil/perfil.module#PerfilModule'        
+        loadChildren: './modulo-sistema-config/perfil/perfil.module#PerfilModule'
 
       },
       {
         path: 'configuracion/tipodocumento',
-        loadChildren: './modulo-sistema-config/tipodocumento/tipodocumento.module#TipodocumentoModule'        
+        loadChildren: './modulo-sistema-config/tipodocumento/tipodocumento.module#TipodocumentoModule'
 
-      }
+      },
+      //  TABLAS
+      {
+        path: 'tablas/asignacion-mesas',
+        loadChildren: './modulo-negocio/asignacion-mesa/asignacion-mesa.module#AsignacionMesaModule'
+      },
 
     ]
-  }, 
- 
+  },
+
 
   {
   path: '',

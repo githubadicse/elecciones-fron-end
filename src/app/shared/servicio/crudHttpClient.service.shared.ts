@@ -64,7 +64,7 @@ export class CrudHttpClientServiceShared {
 		let obj = {'pagenumber':pagenumber,'rows':rows,'sortdireccion':sortdireccion,'sortcolumn':sortcolumn,'filters':filters, 'paramsExtra':paramsExtra};
     let objser = this.configService.serialize(obj);
 
-    let url = this.configService.getUrlSecurityRes(controller,evento);    
+    let url = this.configService.getUrlBasic(controller,evento);    
     return this.httpClient.post(url, objser,{headers:this.configService.getHeaderHttpClientForm() });         
 
   }
@@ -76,7 +76,7 @@ export class CrudHttpClientServiceShared {
       
     let obj = {'pagenumber':pagenumber,'rows':rows,'sortdireccion':sortdireccion,'sortcolumn':sortcolumn,'paramsExtra':paramsExtra};
     let objser = this.configService.serialize(obj);
-    let url = this.configService.getUrlSecurityRes(controller,evento) +'?'+ objser;
+    let url = this.configService.getUrlBasic(controller,evento) +'?'+ objser;
 
     const header = this.configService.getHeaderHttpClientGet();
     
