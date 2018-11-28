@@ -1,0 +1,16 @@
+<div class="animated fadeIn">
+<p>
+  personero
+</p>
+  <mat-card class="w-100">
+    <form [formGroup]="form">
+      <mat-form-field class="w-100">
+        <input matInput autofocus placeholder="Nombres" formControlName="nombrepersonero" #txtPersonero>
+      </mat-form-field>
+      <mat-form-field class="w-100">
+        <input matInput placeholder="DNI" formControlName="dni">
+      </mat-form-field>
+    </form>
+    <button class="btn btn-success" (click)="GuardarProducto()">Guardar</button>
+  </mat-card>
+</div>

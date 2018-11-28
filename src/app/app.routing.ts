@@ -44,6 +44,9 @@ export const AppRoutes: Routes = [
       {
         path: 'tablas/asignacion-mesas',
         loadChildren: './modulo-negocio/asignacion-mesa/asignacion-mesa.module#AsignacionMesaModule'
+      }, {
+        path: 'tablas/personeros',
+        loadChildren: './modulo-negocio/personero/personero.module#PersoneroModule'
       },
 
     ]

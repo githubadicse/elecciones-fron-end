@@ -1,0 +1,40 @@
+<div class="animated fadeIn">
+  <button class="btn btn-success float-right" [routerLink]="['../edit', {id:0}]">+ Agregar</button>
+<p>
+  Personeros
+</p>
+<br>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="listPersonero" matSort class="w-100">
+    <ng-container >
+              <!-- Position Column -->
+      <ng-container matColumnDef="#">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+           <td mat-cell *matCellDef="let element; let i=index;"> {{i+1}} </td>
+      </ng-container>      
+
+      <ng-container matColumnDef="personero">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Personero </th>
+                <td mat-cell *matCellDef="let element"> {{element.nombrepersonero}} </td>                
+      </ng-container>
+
+      <ng-container matColumnDef="dni">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> DNI </th>
+                <td mat-cell *matCellDef="let element"> {{element.dni}} </td>                
+      </ng-container>
+
+      <ng-container matColumnDef="accion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> . </th>
+                <td mat-cell *matCellDef="let element"> 
+                  <i class="fa fa-pencil cursor pr-2" aria-hidden="true"  [routerLink]="['../edit', {id: element.idpersonero}]"></i> 
+                  <i class="fa fa-trash-o cursor text-danger" aria-hidden="true"></i>
+                </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>              
+
+      </ng-container>
+  </table>
+</div>
+</div>
