@@ -1,0 +1,32 @@
+th.mat-sort-header-sorted {
+  color: black;
+}
+
+.example-container {
+  height: 70vh;
+  overflow: auto;
+}
+
+.example-container2 {
+  height: 40vh;
+  overflow: auto;
+}
+
+.content_filtro {
+        position: absolute;
+        padding: 20px;
+        background: grey;
+        border-radius: 3px;
+        padding-right: 25px;        
+        box-shadow: 3px 4px 11px 0px rgba(171, 171, 171, 1);
+}
+
+
+table tr {
+        line-height: 1;
+        height: 35px;
+}
+
+table tr td {
+        font-size: 12px;
+}

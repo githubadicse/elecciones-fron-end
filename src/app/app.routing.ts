@@ -13,15 +13,15 @@ export const AppRoutes: Routes = [
       path: '',
       loadChildren: './dashboard/dashboard.module#DashboardModule',
       canActivate: [AuthGuard],
-      data : {'tituloModulo':'Inicio'}
+      data : {'tituloModulo': 'Inicio'}
       },
 
-      //PROCESOS
+      // PROCESOS
       {
         path : 'procesos/registrar-votos',
         loadChildren : './modulo-negocio/registro-voto/registro-voto.module#RegistroVotoModule'
       },
-      //CONFIGURACION
+      // CONFIGURACION
       {
         path : 'configuracion/menu',
         loadChildren : './modulo-sistema-config/menu/menu.module#MenuModule'
@@ -47,6 +47,11 @@ export const AppRoutes: Routes = [
       }, {
         path: 'tablas/personeros',
         loadChildren: './modulo-negocio/personero/personero.module#PersoneroModule'
+      },
+      // consultas
+      {
+        path: 'consultas/mesas-pendientes-votos',
+        loadChildren: './modulo-negocio/mesas-pendientes/mesas-pendientes.module#MesasPendientesModule'
       },
 
     ]
