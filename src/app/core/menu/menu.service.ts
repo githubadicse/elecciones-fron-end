@@ -123,6 +123,6 @@ export class MenuService {
   }
 
   resetMenuUsuario() {
-    MenuUsuario.length = 0
+    MenuUsuario.length = 0;
   }
 }
