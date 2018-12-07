@@ -1,15 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CrudHttpClientServiceShared } from '../../../shared/servicio/crudHttpClient.service.shared';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MesaDeVotacionModel } from 'src/app/model/mesa-de-votacion-model';
 import { filter } from 'rxjs/operators';
-import { PersoneroModel } from 'src/app/model/personero-model';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import swal from 'sweetalert2';
 import { MSJ_SUCCESS } from 'src/app/shared/config.service.const';
-import { RegistroVotoEditComponent } from '../../registro-voto/registro-voto-edit/registro-voto-edit.component';
-import { ReturnStatement } from '@angular/compiler';
+import { MatCheckbox } from '@angular/material/checkbox';
+
 
 @Component({
   selector: 'app-asignacion-mesa-main',
@@ -23,6 +21,7 @@ export class AsignacionMesaMainComponent implements OnInit {
   displayedFooterAsignacionPorAsignar: string[] = ['total', 'mesas', 'votantes'];
   listMesas: any;
   checkAll = false;
+  // checkPrincipal = false;
   personero: any = false;
   resumenAsignacion: any;
 
@@ -31,6 +30,7 @@ export class AsignacionMesaMainComponent implements OnInit {
   private listMesasSeleccionadas: MesaDeVotacionModel[] = [];
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('checkPrincipal') private checkPrincipal: MatCheckbox;
 
   constructor(private crudService: CrudHttpClientServiceShared) { }
 
@@ -45,6 +45,9 @@ export class AsignacionMesaMainComponent implements OnInit {
       console.log(res);
       swal(MSJ_SUCCESS);
       this.resumenAsignacion = this.groupByPersonero();
+      this.checkPrincipal.checked = false;
+      this.checkAll = false;
+      this.listMesasSeleccionadas = [];
     });
   }
 
