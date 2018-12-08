@@ -13,6 +13,7 @@ import { MesasPendientesRegistrarComponent } from './mesas-pendientes-registrar/
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { Ng2GoogleChartsModule } from 'ng2-google-charts';
 import { MatSortModule } from '@angular/material/sort';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatSortModule,
     MatTabsModule,
+    MatSlideToggleModule,
     MatProgressBarModule,
     ComponentesModule,
     Ng2GoogleChartsModule

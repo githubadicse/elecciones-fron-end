@@ -1,7 +1,121 @@
 <div class="p-3">
-  <div class="row">
-    <div class="col-md-8">
-    </div>
-    <div class="col-md-4">
+  <!-- <div class="row">
+    <div class="col-md-8"> -->
 
+<div class="content_filtro" [hidden]="!verFiltro">
+  <button class="btn btn-sm btn-danger" (click)="verFiltro = !verFiltro">Cerrar</button>
+  <app-ubigeo nivel="4" (getMesas)="getUbigeoMesa($event)" (getUbigeo)="getUbigeoSelect($event)"></app-ubigeo>
+</div>
+<div>
+  <button class="btn btn-success btn-sm mr-1" (click)="verFiltro = !verFiltro"><i class="fa fa-filter" aria-hidden="true"></i>
+    Filtro</button>
+  <button class="btn btn-sm btn-danger" [hidden]="!filtroAplicado" (click)="quitarFiltro()"><i class="fa fa-times"
+      aria-hidden="true"></i>Quitar Filtro</button>
+      <div class="float-right">
+        <mat-slide-toggle (change)="loadActualizarAutomaticamente($event)" #checkUpate>Actualizar automaticamente</mat-slide-toggle>
+      </div>
+</div>
+<br>
+<!-- graficos -->
+<div>
+  <div class="row">
+    <div class="col-sm-3">
+      <mat-card class="w-100">
+      <p>Mesas Por Registrar</p>
+      <hr>
+        <!-- grafico -->
+          <div class="text-center">
+          <table class="w-100">
+            <tr>
+              <td colspan="2">
+                <google-chart [data]="pieChartMesasPendientes"></google-chart>
+              </td>              
+            </tr>
+            <tr>
+              <td><p>Total mesas:</p> <span class="text-danger font-weight-bold">{{ totalMesasVotacion }}</span></td>
+              <td><p>Mesas Registradas:</p> <span class="text-info font-weight-bold">{{ totalMesasRegistradas }}</span></td>
+            </tr>
+          </table>
+          </div>
+      </mat-card>
     </div>
+    <div class="col-sm-3">
+      <mat-card class="w-100">
+      <p>Votos Registrados</p>
+      <hr>
+        <!-- grafico -->
+          <div class="text-center">
+          <table class="w-100">
+            <tr>
+              <td colspan="2">
+                <google-chart class="w-100" [data]="pieChartVotosRegistrados"></google-chart>
+              </td>              
+            </tr>
+            <tr>
+              <td><p>Total Votantes:</p> <span class="text-danger font-weight-bold">{{ totalVotantes }}</span></td>
+              <td><p>Votos Registrados:</p> <span class="text-info font-weight-bold">{{ totalVotosRegistrados }}</span></td>
+            </tr>
+          </table>
+          </div>
+      </mat-card>
+    </div>
+    <div class="col-sm-6">
+      <mat-card class="w-100">
+      <p>Resultados</p>
+      <hr>
+        <!-- grafico -->
+          <div class="text-center w-100">
+            <google-chart class="w-100" [data]="columnChartData2"></google-chart>          
+          </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<br>
+<hr>
+<br>
+  <!-- tabla -->
+  <div>
+
+  <div class="mat-elevation-z8 example-container">
+    <table mat-table [dataSource]="listVotosMesasPorRegistarMostar" matSort class="w-100">
+      <ng-container matColumnDef="#">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let element; let i=index;"> {{i+1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="provincia">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Provincia </th>
+        <td mat-cell *matCellDef="let element"> {{element.centroDeVotacion.distrito.provincia.dscprovincia}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="distrito">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Distrito </th>
+        <td mat-cell *matCellDef="let element"> {{element.centroDeVotacion.distrito.dscdistrito}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="centro">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Centro de votacion </th>
+        <td mat-cell *matCellDef="let element"> {{element.centroDeVotacion.nombreCentroDeVotacion}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="mesa">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mesa </th>
+        <td mat-cell *matCellDef="let element"> {{element.numeroDeMesa}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="porcentaje">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> % </th>
+        <td mat-cell *matCellDef="let element"> {{element.porcentajeVotosRegistrados}} % </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns; "></tr>
+
+    </table>
+    <ng-container *ngIf="cargandoLista">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </ng-container>
+  </div>
+</div>
+</div>
